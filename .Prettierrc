@@ -1,0 +1,46 @@
+{
+  "printWidth": 100,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "quoteProps": "as-needed",
+  "jsxSingleQuote": false,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+
+  // Format markdown prose: always, never, or preserve line breaks
+  "proseWrap": "preserve",
+
+  // How Prettier handles whitespaces in HTML
+  "htmlWhitespaceSensitivity": "css",
+
+  // End of line character
+  "endOfLine": "lf",
+
+  // Format code embedded in markdown, HTML, etc.
+  "embeddedLanguageFormatting": "auto",
+
+  // Whether or not to indent contents inside <script> and <style> tags in Vue files
+  "vueIndentScriptAndStyle": true,
+
+  // Force each HTML/JSX attribute to be on its own line
+  "singleAttributePerLine": false,
+
+  // Insert @format pragma at the top of formatted files
+  "insertPragma": false,
+
+  // Respect or ignore @prettier pragma
+  "requirePragma": false,
+
+  // Customize line endings in Windows/Unix/Mac environments
+  "endOfLine": "lf",
+
+  // Include spaces inside parentheses `( a, b )`
+  "spaceInsideParens": false,    // (This is not a Prettier native option but good to note — handled by ESLint or Stylelint)
+
+  // Control spacing between function keyword and parameters
+  "spaceBeforeFunctionParen": true  // function fn () {}
+}

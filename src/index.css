@@ -1,0 +1,190 @@
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#1a1a1a] text-white font-inter overflow-x-hidden min-h-screen m-0 p-0;
+  }
+
+  html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .grid-pattern {
+    background-image: linear-gradient(rgba(255, 107, 0, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 107, 0, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .chain-button {
+    @apply flex items-center gap-3 py-4 px-6 bg-transparent backdrop-blur-md border-2 rounded-lg text-white font-medium transition-all duration-200 hover:bg-white/5;
+  }
+
+  .chain-icon {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-glow;
+  }
+  
+  .pixel-text {
+    font-family: "Press Start 2P", "Pixelify Sans", cursive;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  
+  .game-text {
+    font-family: "VT323", monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .rainbow-text {
+    background: linear-gradient(90deg, #ff00ff, #ff66ff, #ff33cc, #ff99ff);
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: rainbow-text 4s ease infinite;
+  }
+
+  @keyframes rainbow-text {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .shadow-glow {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+  }
+}
+
+.font-pixel {
+  font-family: "Pixelify Sans", cursive;
+}
+
+.font-game {
+  font-family: "Press Start 2P", cursive;
+}
+
+.font-retro {
+  font-family: "VT323", monospace;
+}
+
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
+
+/* Updated background pattern to match screenshot exactly */
+.bg-pattern {
+  /* Base color - dark brown/black */
+  background-color: #141210;
+  /* Gradient with hero-bg overlay */
+  background-image: 
+    /* Main background image */
+    url('/src/assets/hero/hero-bg.png'),
+    /* Gradient from light amber at top to dark brown at bottom */
+    linear-gradient(180deg, rgba(94, 68, 36, 0.35) 0%, rgba(40, 29, 16, 0.9) 50%, rgba(16, 12, 8, 0.95) 100%),
+    /* Grid pattern */
+    linear-gradient(rgba(255, 107, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 107, 0, 0.04) 1px, transparent 1px);
+  background-size: cover, 100% 100%, 20px 20px, 20px 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay, normal, normal;
+  min-height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+/* Updated navbar styling with glass finish */
+.navbar {
+  background-color: rgba(48, 38, 28, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Updated button styling with glass finish */
+.chain-btn {
+  background-color: rgba(43, 33, 23, 0.75);
+  border: 2px solid;
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+  font-size: 1.2rem;
+  padding: 0.75rem 1rem;
+}
+
+.chain-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+.chain-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.3), transparent);
+}
+
+.chain-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Chain button styling with glass effect */
+.chain-btn-ethereum {
+  background-color: rgba(255, 107, 0, 0.45);
+  border-color: #ff6b00;
+  box-shadow: 0 0 15px rgba(255, 107, 0, 0.25);
+}
+
+.chain-btn-ethereum:hover {
+  background-color: rgba(255, 107, 0, 0.55);
+  box-shadow: 0 0 20px rgba(255, 107, 0, 0.35);
+}
+
+.chain-btn-base {
+  background-color: rgba(0, 82, 255, 0.15);
+  border-color: #0052ff;
+}
+
+.chain-btn-binance {
+  background-color: rgba(240, 185, 11, 0.15);
+  border-color: #f0b90b;
+}
+
+.chain-btn-arbitrum {
+  background-color: rgba(40, 160, 240, 0.15);
+  border-color: #28a0f0;
+}
+
+.chain-btn-polygon {
+  background-color: rgba(130, 71, 229, 0.15);
+  border-color: #8247e5;
+}
+
+.chain-btn-optimism {
+  background-color: rgba(255, 4, 32, 0.15);
+  border-color: #ff0420;
+}
