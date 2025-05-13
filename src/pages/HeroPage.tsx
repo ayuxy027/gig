@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import "../styles/hero.css"
 // Import all images as modules
 import bgImg from "../assets/hero-page/bg-img.png"
 import rektIdLogo from "../assets/hero-page/rekt-id-logo.png"
@@ -44,82 +43,6 @@ const HeroPage = () => {
     // Handle chain selection
     const handleChainSelect = (chainId: string) => {
         setSelectedChain(chainId)
-    }
-
-    // ===== POSITIONING VARIABLES - ADJUST THESE TO FINE-TUNE LAYOUT =====
-
-    // -------------------- VECTOR PATH POSITIONING --------------------
-    // These control the background vector that contains the transaction stats
-    const vectorPositionStyles = {
-        right: "-50px",  // More negative value to shift further right
-        top: "60px",    // Adjusted to align better with the title text
-        width: "calc(100% + 100px)",  // Adjusted width
-        height: "450px", // Maintained height
-        zIndex: 1,     // Ensure it's behind the stats content
-    }
-
-    // -------------------- YELLOW DOT CONNECTOR POSITIONING --------------------
-    // These position the yellow connector dots along the vector path
-
-    // FIRST CONNECTOR DOT (Top dot)
-    const connector1Position = {
-        top: "80px",   // Adjusted to align with the light plug
-        left: "140px", // Positioned to connect with the light plug
-    }
-
-    // SECOND CONNECTOR DOT (Bottom dot)
-    const connector2Position = {
-        top: "320px",  // Adjusted to align with the second light plug
-        left: "140px", // Positioned to connect with the light plug
-    }
-
-    // -------------------- STATS GRID SPACING AND POSITIONING --------------------
-    // These control the overall spacing and positioning of the stats boxes
-
-    const statsGridSpacing = {
-        // Space between individual stat boxes (horizontal and vertical)
-        gap: "16px",     // Adjusted for better fit
-
-        // Top margin of the entire stats section
-        marginTop: "100px", // Kept the same
-
-        // Horizontal padding to center the stats within the vector
-        paddingLeft: "40px",  // Reduced to fit stats in narrower space
-        paddingRight: "0px", // Adjusted to fit content right-aligned
-
-        // Space between the first and second row of stats
-        rowGap: "24px", // Maintained for good vertical spacing
-    }
-
-    // -------------------- STATS BOX STYLING --------------------
-    // These control the appearance and sizing of individual stat boxes
-
-    const statsBoxStyles = {
-        // Internal padding within each stats box
-        // Increase for larger boxes, decrease for smaller
-        padding: "14px", // Try values between 10px and 18px
-
-        // Box shadow for the glow effect
-        // Increase last value (0.2) for stronger glow
-        boxShadow: "inset 0 0 10px rgba(253, 93, 0, 0.2)",
-
-        // Corner radius for the stats boxes
-        // Increase for more rounded corners
-        borderRadius: "12px", // Try values between 8px and 16px
-    }
-
-    // -------------------- LIGHTNING AND HEADER POSITIONING --------------------
-    // These control the positioning of the lightning image and "YOUR ONCHAIN stats" text
-
-    const headerStyles = {
-        // Space between lightning image and stats text
-        marginRight: "8px", // Increased from 6px to 8px
-
-        // Space below the header before the stats grid
-        marginBottom: "20px", // Increased from 16px to 20px for better spacing
-
-        // Lightning image size
-        lightningWidth: "32px", // Increased from 28px to 32px for better visibility
     }
 
     return (
@@ -256,242 +179,298 @@ const HeroPage = () => {
 
                                     {/* Stats Section with Vector Background and Connector Dots */}
                                     <div
-                                        className="relative"
                                         style={{
-                                            marginTop: statsGridSpacing.marginTop
+                                            marginTop: "60px",
+                                            position: "relative",
+                                            width: "100%"
                                         }}
                                     >
-                                        {/* Lightning and Stats Header - Title Section */}
-                                        <div className="flex items-start" style={{
-                                            marginBottom: headerStyles.marginBottom,
+                                        {/* Main container */}
+                                        <div style={{
                                             position: "relative",
-                                            zIndex: 10,
-                                            marginLeft: "40px" // Added margin to move title more to the right
+                                            display: "flex",
+                                            alignItems: "flex-start"
                                         }}>
-                                            <div className="relative" style={{ marginRight: headerStyles.marginRight }}>
-                                                {/* Lightning image - adjust width in headerStyles */}
+                                            {/* YOUR ONCHAIN stats heading with lightning */}
+                                            <div style={{
+                                                position: "relative",
+                                                zIndex: 5,
+                                                width: "200px",
+                                                display: "flex",
+                                                alignItems: "flex-start"
+                                            }}>
+                                                {/* Lightning icon */}
                                                 <img
                                                     src={lightingImg || "/placeholder.svg"}
                                                     alt="Lightning"
-                                                    className="lightning-img"
-                                                    style={{ width: headerStyles.lightningWidth + "px", height: "auto" }}
+                                                    style={{
+                                                        width: "35px",
+                                                        height: "auto",
+                                                        marginRight: "10px",
+                                                        filter: "drop-shadow(0 0 10px rgba(253, 93, 0, 0.6))"
+                                                    }}
                                                 />
-                                            </div>
-                                            {/* Stats title */}
-                                            <div className="stats-header">
-                                                <div className="text-2xl font-bold gradient-text-orange">YOUR ONCHAIN</div>
-                                                <div className="text-6xl italic font-bold">stats</div>
-                                            </div>
-                                        </div>
 
-                                        {/* Vector Lines Background - KEY ELEMENT TO ADJUST */}
-                                        {/* This is the orange path that contains all the stats */}
-                                        <div
-                                            className="absolute pointer-events-none"
-                                            style={{
-                                                // Position adjustments from vectorPositionStyles
-                                                right: vectorPositionStyles.right,
-                                                top: vectorPositionStyles.top,
-                                                width: vectorPositionStyles.width,
-                                                height: vectorPositionStyles.height,
-                                                zIndex: vectorPositionStyles.zIndex,
-                                            }}
-                                        >
-                                            <img
-                                                src={linesVector || "/placeholder.svg"}
-                                                alt="Vector Lines"
-                                                className="object-contain w-full h-full vector-lines"
-                                            />
-                                        </div>
-
-                                        {/* First Connector Dot - TOP POSITION */}
-                                        {/* This is the first yellow dot that connects to the vector path */}
-                                        <div
-                                            className="absolute"
-                                            style={{
-                                                top: connector1Position.top,
-                                                left: connector1Position.left,
-                                                zIndex: 10,
-                                                // Uncomment to see connector position:
-                                                // border: "1px solid green"
-                                            }}
-                                        >
-                                            <div className="relative">
-                                                <img src={yellowDot || "/placeholder.svg"} alt="Connector Dot" className="w-9 h-9" />
-                                            </div>
-                                        </div>
-
-                                        {/* Second Connector Dot - BOTTOM POSITION */}
-                                        {/* This is the second yellow dot that connects to the vector path */}
-                                        <div
-                                            className="absolute"
-                                            style={{
-                                                top: connector2Position.top,
-                                                left: connector2Position.left,
-                                                zIndex: 10,
-                                                // Uncomment to see connector position:
-                                                // border: "1px solid green"
-                                            }}
-                                        >
-                                            <div className="relative">
-                                                <img src={yellowDot2 || "/placeholder.svg"} alt="Connector Dot" className="w-9 h-9" />
-                                            </div>
-                                        </div>
-
-                                        {/* Stats Grid - Positioned inside the vector path */}
-                                        {/* This contains all the transaction data boxes */}
-                                        <div
-                                            className="relative"
-                                            style={{
-                                                zIndex: 5,
-                                                // Padding to position stats within vector
-                                                paddingLeft: statsGridSpacing.paddingLeft,
-                                                paddingRight: statsGridSpacing.paddingRight,
-                                                position: "relative", // Ensures proper stacking
-                                                right: "-40px", // Shifts the stats grid further right to align with vector
-                                            }}
-                                        >
-                                            {/* First Row of Stats */}
-                                            <div
-                                                className="grid grid-cols-4"
-                                                style={{
-                                                    gap: statsGridSpacing.gap,
-                                                    marginBottom: statsGridSpacing.rowGap,
-                                                    width: "90%", // Added to ensure stats fit inside vector
-                                                    marginLeft: "auto", // Aligns to the right
-                                                    marginRight: "30px" // Gives some margin on the right
-                                                }}
-                                            >
-                                                {/* First Transaction */}
+                                                {/* Text */}
                                                 <div>
-                                                    <div className="mb-2 text-sm gradient-text-orange">First Transaction</div>
-                                                    <div
-                                                        className="bg-black/50 stats-box"
-                                                        style={{
-                                                            padding: statsBoxStyles.padding,
-                                                            boxShadow: statsBoxStyles.boxShadow,
-                                                            borderRadius: statsBoxStyles.borderRadius
-                                                        }}
-                                                    >
-                                                        <div className="text-xs text-orange-500">11:53 UTC</div>
-                                                        <div className="text-xl text-orange-500 monospace-numbers">12-06-2018</div>
+                                                    <div style={{
+                                                        fontSize: "1.5rem",
+                                                        fontWeight: "bold",
+                                                        background: "linear-gradient(to right, #ffaa79, #fd5d00)",
+                                                        WebkitBackgroundClip: "text",
+                                                        WebkitTextFillColor: "transparent"
+                                                    }}>
+                                                        YOUR ONCHAIN
                                                     </div>
-                                                </div>
-
-                                                {/* Latest Transaction */}
-                                                <div>
-                                                    <div className="mb-2 text-sm gradient-text-orange">Latest Transaction</div>
-                                                    <div
-                                                        className="bg-black/50 stats-box"
-                                                        style={{
-                                                            padding: statsBoxStyles.padding,
-                                                            boxShadow: statsBoxStyles.boxShadow,
-                                                            borderRadius: statsBoxStyles.borderRadius
-                                                        }}
-                                                    >
-                                                        <div className="text-xs text-orange-500">01:11 UTC</div>
-                                                        <div className="text-xl text-orange-500 monospace-numbers">15-04-2025</div>
-                                                    </div>
-                                                </div>
-
-                                                {/* High Value Transaction */}
-                                                <div>
-                                                    <div className="mb-2 text-sm gradient-text-orange">High Value Transaction</div>
-                                                    <div
-                                                        className="bg-black/50 stats-box"
-                                                        style={{
-                                                            padding: statsBoxStyles.padding,
-                                                            boxShadow: statsBoxStyles.boxShadow,
-                                                            borderRadius: statsBoxStyles.borderRadius
-                                                        }}
-                                                    >
-                                                        <div className="text-2xl text-orange-500 monospace-numbers">$18,765.08</div>
-                                                    </div>
-                                                </div>
-
-                                                {/* Cumulative Gas Fees */}
-                                                <div>
-                                                    <div className="mb-2 text-sm gradient-text-orange">Cumulative Gas Fees</div>
-                                                    <div
-                                                        className="bg-black/50 stats-box"
-                                                        style={{
-                                                            padding: statsBoxStyles.padding,
-                                                            boxShadow: statsBoxStyles.boxShadow,
-                                                            borderRadius: statsBoxStyles.borderRadius
-                                                        }}
-                                                    >
-                                                        <div className="text-2xl text-orange-500 monospace-numbers">$1,865.08</div>
+                                                    <div style={{
+                                                        fontSize: "4rem",
+                                                        fontStyle: "italic",
+                                                        fontWeight: "bold",
+                                                        lineHeight: "0.9",
+                                                        marginTop: "5px"
+                                                    }}>
+                                                        stats
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            {/* Second Row of Stats */}
-                                            <div
-                                                className="grid grid-cols-4"
-                                                style={{
-                                                    gap: statsGridSpacing.gap,
-                                                    width: "90%", // Added to ensure stats fit inside vector
-                                                    marginLeft: "auto", // Aligns to the right
-                                                    marginRight: "30px" // Gives some margin on the right
-                                                }}
-                                            >
-                                                {/* Total Amount Staked */}
-                                                <div>
-                                                    <div className="mb-2 text-sm gradient-text-orange">Total Amount Staked</div>
-                                                    <div
-                                                        className="bg-black/50 stats-box"
+                                            {/* Vector container with stats */}
+                                            <div style={{
+                                                position: "relative",
+                                                flex: 1,
+                                                minHeight: "400px",
+                                                marginLeft: "-40px"
+                                            }}>
+                                                {/* Original Vector 2.svg */}
+                                                <div style={{
+                                                    position: "absolute",
+                                                    top: "0",
+                                                    left: "0",
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    zIndex: 1
+                                                }}>
+                                                    <img
+                                                        src={linesVector || "/placeholder.svg"}
+                                                        alt="Vector Lines"
                                                         style={{
-                                                            padding: statsBoxStyles.padding,
-                                                            boxShadow: statsBoxStyles.boxShadow,
-                                                            borderRadius: statsBoxStyles.borderRadius
+                                                            width: "100%",
+                                                            height: "100%",
+                                                            objectFit: "contain"
                                                         }}
-                                                    >
-                                                        <div className="text-2xl text-orange-500 monospace-numbers">$665.08</div>
-                                                    </div>
+                                                    />
                                                 </div>
 
-                                                {/* Total NFTs Minted */}
-                                                <div>
-                                                    <div className="mb-2 text-sm gradient-text-orange">Total NFTs Minted</div>
-                                                    <div
-                                                        className="bg-black/50 stats-box"
+                                                {/* Connector dots - positioned at the left indent of the vector */}
+                                                <div style={{
+                                                    position: "absolute",
+                                                    top: "140px",
+                                                    left: "35px",
+                                                    zIndex: 5
+                                                }}>
+                                                    <img
+                                                        src={yellowDot || "/placeholder.svg"}
+                                                        alt="Top Connector"
                                                         style={{
-                                                            padding: statsBoxStyles.padding,
-                                                            boxShadow: statsBoxStyles.boxShadow,
-                                                            borderRadius: statsBoxStyles.borderRadius
+                                                            width: "10px",
+                                                            height: "10px",
+                                                            filter: "drop-shadow(0 0 8px rgba(255, 234, 0, 0.7))"
                                                         }}
-                                                    >
-                                                        <div className="text-2xl text-orange-500 monospace-numbers">478</div>
-                                                    </div>
+                                                    />
                                                 </div>
 
-                                                {/* Total No Of Transactions */}
-                                                <div>
-                                                    <div className="mb-2 text-sm gradient-text-orange">Total No Of Transactions</div>
-                                                    <div
-                                                        className="bg-black/50 stats-box"
+                                                <div style={{
+                                                    position: "absolute",
+                                                    top: "180px",
+                                                    left: "35px",
+                                                    zIndex: 5
+                                                }}>
+                                                    <img
+                                                        src={yellowDot2 || "/placeholder.svg"}
+                                                        alt="Bottom Connector"
                                                         style={{
-                                                            padding: statsBoxStyles.padding,
-                                                            boxShadow: statsBoxStyles.boxShadow,
-                                                            borderRadius: statsBoxStyles.borderRadius
+                                                            width: "10px",
+                                                            height: "10px",
+                                                            filter: "drop-shadow(0 0 8px rgba(255, 234, 0, 0.7))"
                                                         }}
-                                                    >
-                                                        <div className="text-2xl text-orange-500 monospace-numbers">1,785</div>
-                                                    </div>
+                                                    />
                                                 </div>
 
-                                                {/* Total Token Holdings */}
-                                                <div>
-                                                    <div className="mb-2 text-sm gradient-text-orange">Total Token Holdings</div>
-                                                    <div
-                                                        className="bg-black/50 stats-box"
-                                                        style={{
-                                                            padding: statsBoxStyles.padding,
-                                                            boxShadow: statsBoxStyles.boxShadow,
-                                                            borderRadius: statsBoxStyles.borderRadius
-                                                        }}
-                                                    >
-                                                        <div className="text-2xl text-orange-500 monospace-numbers">547</div>
+                                                {/* Stats Grid - All rows positioned inside the vector path */}
+                                                <div style={{
+                                                    position: "relative",
+                                                    paddingTop: "40px",
+                                                    paddingLeft: "80px",
+                                                    paddingRight: "40px",
+                                                    zIndex: 3
+                                                }}>
+                                                    {/* First Row of Stats */}
+                                                    <div style={{
+                                                        display: "grid",
+                                                        gridTemplateColumns: "repeat(4, 1fr)",
+                                                        gap: "16px",
+                                                        marginBottom: "40px"
+                                                    }}>
+                                                        {/* First Transaction */}
+                                                        <div>
+                                                            <div style={{
+                                                                fontSize: "0.875rem",
+                                                                marginBottom: "8px",
+                                                                background: "linear-gradient(to right, #ffaa79, #fd5d00)",
+                                                                WebkitBackgroundClip: "text",
+                                                                WebkitTextFillColor: "transparent"
+                                                            }}>First Transaction</div>
+                                                            <div style={{
+                                                                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                                                boxShadow: "inset 0 0 10px rgba(253, 93, 0, 0.2)",
+                                                                borderRadius: "12px",
+                                                                padding: "14px"
+                                                            }}>
+                                                                <div style={{ fontSize: "0.75rem", color: "#fd5d00" }}>11:53 UTC</div>
+                                                                <div style={{ fontSize: "1.25rem", color: "#fd5d00", fontVariantNumeric: "tabular-nums" }}>12-06-2018</div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Latest Transaction */}
+                                                        <div>
+                                                            <div style={{
+                                                                fontSize: "0.875rem",
+                                                                marginBottom: "8px",
+                                                                background: "linear-gradient(to right, #ffaa79, #fd5d00)",
+                                                                WebkitBackgroundClip: "text",
+                                                                WebkitTextFillColor: "transparent"
+                                                            }}>Latest Transaction</div>
+                                                            <div style={{
+                                                                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                                                boxShadow: "inset 0 0 10px rgba(253, 93, 0, 0.2)",
+                                                                borderRadius: "12px",
+                                                                padding: "14px"
+                                                            }}>
+                                                                <div style={{ fontSize: "0.75rem", color: "#fd5d00" }}>01:11 UTC</div>
+                                                                <div style={{ fontSize: "1.25rem", color: "#fd5d00", fontVariantNumeric: "tabular-nums" }}>15-04-2025</div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* High Value Transaction */}
+                                                        <div>
+                                                            <div style={{
+                                                                fontSize: "0.875rem",
+                                                                marginBottom: "8px",
+                                                                background: "linear-gradient(to right, #ffaa79, #fd5d00)",
+                                                                WebkitBackgroundClip: "text",
+                                                                WebkitTextFillColor: "transparent"
+                                                            }}>High Value Transaction</div>
+                                                            <div style={{
+                                                                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                                                boxShadow: "inset 0 0 10px rgba(253, 93, 0, 0.2)",
+                                                                borderRadius: "12px",
+                                                                padding: "14px"
+                                                            }}>
+                                                                <div style={{ fontSize: "1.5rem", color: "#fd5d00", fontVariantNumeric: "tabular-nums" }}>$18,765.08</div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Cumulative Gas Fees */}
+                                                        <div>
+                                                            <div style={{
+                                                                fontSize: "0.875rem",
+                                                                marginBottom: "8px",
+                                                                background: "linear-gradient(to right, #ffaa79, #fd5d00)",
+                                                                WebkitBackgroundClip: "text",
+                                                                WebkitTextFillColor: "transparent"
+                                                            }}>Cumulative Gas Fees</div>
+                                                            <div style={{
+                                                                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                                                boxShadow: "inset 0 0 10px rgba(253, 93, 0, 0.2)",
+                                                                borderRadius: "12px",
+                                                                padding: "14px"
+                                                            }}>
+                                                                <div style={{ fontSize: "1.5rem", color: "#fd5d00", fontVariantNumeric: "tabular-nums" }}>$1,865.08</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Second Row of Stats */}
+                                                    <div style={{
+                                                        display: "grid",
+                                                        gridTemplateColumns: "repeat(4, 1fr)",
+                                                        gap: "16px"
+                                                    }}>
+                                                        {/* Total Amount Staked */}
+                                                        <div>
+                                                            <div style={{
+                                                                fontSize: "0.875rem",
+                                                                marginBottom: "8px",
+                                                                background: "linear-gradient(to right, #ffaa79, #fd5d00)",
+                                                                WebkitBackgroundClip: "text",
+                                                                WebkitTextFillColor: "transparent"
+                                                            }}>Total Amount Staked</div>
+                                                            <div style={{
+                                                                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                                                boxShadow: "inset 0 0 10px rgba(253, 93, 0, 0.2)",
+                                                                borderRadius: "12px",
+                                                                padding: "14px"
+                                                            }}>
+                                                                <div style={{ fontSize: "1.5rem", color: "#fd5d00", fontVariantNumeric: "tabular-nums" }}>$665.08</div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Total NFTs Minted */}
+                                                        <div>
+                                                            <div style={{
+                                                                fontSize: "0.875rem",
+                                                                marginBottom: "8px",
+                                                                background: "linear-gradient(to right, #ffaa79, #fd5d00)",
+                                                                WebkitBackgroundClip: "text",
+                                                                WebkitTextFillColor: "transparent"
+                                                            }}>Total NFTs Minted</div>
+                                                            <div style={{
+                                                                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                                                boxShadow: "inset 0 0 10px rgba(253, 93, 0, 0.2)",
+                                                                borderRadius: "12px",
+                                                                padding: "14px"
+                                                            }}>
+                                                                <div style={{ fontSize: "1.5rem", color: "#fd5d00", fontVariantNumeric: "tabular-nums" }}>478</div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Total No Of Transactions */}
+                                                        <div>
+                                                            <div style={{
+                                                                fontSize: "0.875rem",
+                                                                marginBottom: "8px",
+                                                                background: "linear-gradient(to right, #ffaa79, #fd5d00)",
+                                                                WebkitBackgroundClip: "text",
+                                                                WebkitTextFillColor: "transparent"
+                                                            }}>Total No Of Transactions</div>
+                                                            <div style={{
+                                                                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                                                boxShadow: "inset 0 0 10px rgba(253, 93, 0, 0.2)",
+                                                                borderRadius: "12px",
+                                                                padding: "14px"
+                                                            }}>
+                                                                <div style={{ fontSize: "1.5rem", color: "#fd5d00", fontVariantNumeric: "tabular-nums" }}>1,785</div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Total Token Holdings */}
+                                                        <div>
+                                                            <div style={{
+                                                                fontSize: "0.875rem",
+                                                                marginBottom: "8px",
+                                                                background: "linear-gradient(to right, #ffaa79, #fd5d00)",
+                                                                WebkitBackgroundClip: "text",
+                                                                WebkitTextFillColor: "transparent"
+                                                            }}>Total Token Holdings</div>
+                                                            <div style={{
+                                                                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                                                boxShadow: "inset 0 0 10px rgba(253, 93, 0, 0.2)",
+                                                                borderRadius: "12px",
+                                                                padding: "14px"
+                                                            }}>
+                                                                <div style={{ fontSize: "1.5rem", color: "#fd5d00", fontVariantNumeric: "tabular-nums" }}>547</div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
