@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Jersey+10:wght@400;700&display=swap");
 
+/* ===== BASE STYLES ===== */
+
 body {
   margin: 0;
   font-family: "DM Mono", monospace;
@@ -10,45 +12,60 @@ body {
   color: #fff;
 }
 
-/* Jersey font for chain selector */
+/* Jersey font for chain selector - enables sports-like numbers */
 .jersey-font {
   font-family: "Jersey 10", "DM Mono", monospace;
   letter-spacing: 0.5px;
 }
 
-/* Gradient text for orange headings */
-.gradient-text-orange {
-  background: linear-gradient(to right, #ffaa79, #fd5d00);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* ===== VECTOR AND CONNECTOR STYLING ===== */
+
+/* Vector lines styling - this is the orange path background */
+.vector-lines {
+  /* Adjust opacity to make the vector more/less prominent */
+  opacity: 0.8;
+  /* These ensure the vector takes up the full container */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Keep vector behind stats but above background */
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* Glow effect for stats boxes */
-.stats-box-glow {
-  box-shadow: inset 0 0 10px rgba(253, 93, 0, 0.2);
-  transition: box-shadow 0.3s ease;
-}
-
-.stats-box-glow:hover {
-  box-shadow: inset 0 0 15px rgba(253, 93, 0, 0.3);
-}
-
-/* Monospace number styling for consistent number display */
-.monospace-numbers {
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.5px;
-}
-
-/* Lightning container styling */
-.lightning-container {
+/* Yellow connector dots styling */
+img[alt="Connector Dot"] {
+  /* Adjust glow intensity with drop-shadow values */
+  filter: drop-shadow(0 0 8px rgba(255, 234, 0, 0.6));
+  /* Pulsing animation for the dots */
+  animation: connector-pulse 4s infinite alternate;
   position: relative;
-  z-index: 3;
+  z-index: 10;
 }
 
-.lightning-container img {
+@keyframes connector-pulse {
+  0% {
+    filter: drop-shadow(0 0 6px rgba(255, 234, 0, 0.4));
+    transform: scale(1);
+  }
+  100% {
+    filter: drop-shadow(0 0 14px rgba(255, 234, 0, 0.8));
+    transform: scale(1.1);
+  }
+}
+
+/* ===== LIGHTNING AND HEADER STYLING ===== */
+
+/* Lightning image styling */
+.lightning-img {
+  /* Adjust glow intensity with drop-shadow values */
   filter: drop-shadow(0 0 12px rgba(253, 93, 0, 0.6));
+  /* Subtle pulsing animation */
   animation: lightning-pulse 3s infinite alternate;
+  z-index: 10;
+  position: relative;
 }
 
 @keyframes lightning-pulse {
@@ -62,45 +79,41 @@ body {
   }
 }
 
-/* Stats text styling */
-.stats-text {
+/* Stats header styling - "YOUR ONCHAIN stats" text */
+.stats-header {
   position: relative;
-  z-index: 3;
+  z-index: 10;
 }
 
-/* Connection lines and dots styling */
-.connection-lines {
-  position: relative;
+/* Gradient text for orange headings - used for stat titles */
+.gradient-text-orange {
+  background: linear-gradient(to right, #ffaa79, #fd5d00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.connection-line {
-  position: relative;
+/* ===== STATS BOX STYLING ===== */
+
+/* Stats box styling - applies to all stats containers */
+.stats-box {
+  /* Inner glow effect */
+  box-shadow: inset 0 0 10px rgba(253, 93, 0, 0.2);
+  transition: box-shadow 0.3s ease;
 }
 
-/* Connection dots animation */
-img[alt="Connection Dot"] {
-  animation: dot-pulse 4s infinite alternate;
+.stats-box:hover {
+  /* Stronger glow on hover */
+  box-shadow: inset 0 0 15px rgba(253, 93, 0, 0.3);
 }
 
-@keyframes dot-pulse {
-  0% {
-    filter: drop-shadow(0 0 5px rgba(255, 234, 0, 0.5));
-    transform: scale(1);
-  }
-  100% {
-    filter: drop-shadow(0 0 12px rgba(255, 234, 0, 0.8));
-    transform: scale(1.08);
-  }
+/* Monospace number styling for consistent number display */
+.monospace-numbers {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.5px;
 }
 
-/* Vector lines styling */
-.vector-lines {
-  position: relative;
-  width: 100%;
-  height: auto;
-  opacity: 0.7;
-  z-index: 1;
-}
+/* ===== CHAIN SELECTOR STYLING ===== */
 
 /* Chain selector styling */
 .chain-selector-item {
@@ -114,113 +127,40 @@ img[alt="Connection Dot"] {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Stats grid layout */
-.stats-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
-  .lightning-container img {
+  /* Lightning image size for smaller screens */
+  .lightning-img {
     width: 80px !important;
     height: auto !important;
   }
   
-  img[alt="Connection Dot"] {
-    width: 10px;
-    height: 10px;
+  /* Connector dots size for smaller screens */
+  img[alt="Connector Dot"] {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Change grid to 2 columns instead of 4 on smaller screens */
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr);
   }
   
-  .connection-line {
-    transform: scale(0.8);
-  }
-  
+  /* Adjust vector position for smaller screens */
   .vector-lines {
-    transform: translateY(20px);
+    transform: scale(0.9) translateX(-5%);
   }
 }
 
-/* Light plug styling */
-.light-plug {
-  filter: drop-shadow(0 0 10px rgba(253, 93, 0, 0.5));
-  position: relative;
-  z-index: 3;
-  animation: plug-pulse 4s infinite alternate;
+/* ===== HELPER TEXT COLORS ===== */
+
+.text-orange-400 {
+  color: #fd5d00;
 }
 
-@keyframes plug-pulse {
-  0% {
-    filter: drop-shadow(0 0 5px rgba(253, 93, 0, 0.4));
-    transform: scale(1);
-  }
-  100% {
-    filter: drop-shadow(0 0 12px rgba(253, 93, 0, 0.7));
-    transform: scale(1.05);
-  }
-}
-
-/* Light connection lines */
-.light-connection-line {
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  width: 2px;
-  height: 120px;
-  background: linear-gradient(to bottom, rgba(253, 93, 0, 0.8), rgba(253, 93, 0, 0.1));
-  transform: translateX(-50%);
-  z-index: 1;
-}
-
-/* Light to lines connectors */
-.light-to-lines-connector {
-  position: absolute;
-  width: 3px;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(253, 93, 0, 0.8), rgba(253, 93, 0, 0.1));
-  transform: translateY(-60%);
-  z-index: 1;
-}
-
-.left-connector {
-  left: 7%;
-  top: 0;
-}
-
-.right-connector {
-  left: 25%;
-  top: 0;
-}
-
-/* Lines vector styling enhancement */
-img[alt="Decorative Lines"] {
-  opacity: 0.5;
-  transform: translateY(20%);
-}
-
-/* Custom sizes for images */
-img[src="../assets/hero-page/light-plug.png"] {
-  width: 60px;
-  height: 60px;
-}
-
-img[src="../assets/hero-page/lighting-img.png"] {
-  width: 120px;
-  height: 120px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  img[src="../assets/hero-page/light-plug.png"] {
-    width: 40px;
-    height: 40px;
-  }
-
-  img[src="../assets/hero-page/lighting-img.png"] {
-    width: 100px;
-    height: 100px;
-  }
+.text-orange-500 {
+  color: #fd5d00;
 }
 
 /* Enhance the background with a subtle noise texture */

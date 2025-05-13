@@ -10,6 +10,7 @@ import avatarImg from "../assets/hero-page/avatar.png"
 import rectangleGradientBox from "../assets/hero-page/rectangle gradient box.png"
 import lightingImg from "../assets/hero-page/lighting-img.png"
 import yellowDot from "../assets/hero-page/lines effect/Container-1.svg"
+import yellowDot2 from "../assets/hero-page/lines effect/Container.svg"
 import linesVector from "../assets/hero-page/lines effect/Vector 2.svg"
 import ethLogo from "../assets/hero-page/logo/eth-logo.png"
 import binanceLogo from "../assets/hero-page/logo/binance-logo.png"
@@ -45,11 +46,116 @@ const HeroPage = () => {
         setSelectedChain(chainId)
     }
 
+    // ===== POSITIONING VARIABLES - ADJUST THESE TO FINE-TUNE LAYOUT =====
+
+    // -------------------- VECTOR PATH POSITIONING --------------------
+    // These control the background vector that contains the transaction stats
+    const vectorPositionStyles = {
+        // Adjust left to move vector horizontally (negative = left, positive = right)
+        // ADJUST THIS VALUE: Increase for moving right, decrease for moving left
+        // Current adjustment: moved right by 70px from previous position
+        left: "-5px", // Try values between -80px and +50px to position correctly
+
+        // Adjust top to move vector vertically (negative = up, positive = down)
+        // Increase this value to move the vector down if stats boxes are too high
+        top: "50px", // Try values between 0px and 100px
+
+        // Adjust width to ensure vector covers all stat boxes
+        // Increase this value if stats boxes extend beyond the vector edges
+        width: "calc(100% + 130px)", // Try between 100% and 130% of container width
+
+        // Adjust height to ensure vector covers all stat boxes vertically
+        // Increase if bottom stats are outside the vector
+        height: "450px", // Try values between 400px and 500px
+    }
+
+    // -------------------- YELLOW DOT CONNECTOR POSITIONING --------------------
+    // These position the yellow connector dots along the vector path
+
+    // FIRST CONNECTOR DOT (Top dot)
+    const connector1Position = {
+        // Vertical position from the top of the stats section
+        // Increase to move down, decrease to move up
+        top: "70px", // Adjust between 50px and 100px
+
+        // Horizontal position from the left of the container
+        // Increase to move right, decrease to move left
+        // This should align with the curve in the vector path
+        left: "150px", // Adjust between 120px and 200px
+    }
+
+    // SECOND CONNECTOR DOT (Bottom dot)
+    const connector2Position = {
+        // Vertical position from the top of the stats section
+        // This position should align with the bottom curve of the vector
+        // Increase to move down, decrease to move up
+        top: "270px", // Adjust between 250px and 300px
+
+        // Horizontal position from the left of the container
+        // Usually should match the horizontal position of the first connector
+        left: "150px", // Adjust between 120px and 200px
+    }
+
+    // -------------------- STATS GRID SPACING AND POSITIONING --------------------
+    // These control the overall spacing and positioning of the stats boxes
+
+    const statsGridSpacing = {
+        // Space between individual stat boxes (horizontal and vertical)
+        // Increase for more spacing, decrease for tighter layout
+        gap: "16px", // Try values between 12px and 24px
+
+        // Top margin of the entire stats section
+        // Increase to move stats grid down, decrease to move up
+        // This affects the space between the heading and first row of stats
+        marginTop: "120px", // Adjust between 100px and 150px
+
+        // Horizontal padding to center the stats within the vector
+        // Adjust these values to shift the entire stats grid left or right
+        // Increase left padding to move stats right, right padding to move left
+        paddingLeft: "60px", // Adjust between 35px and 80px
+        paddingRight: "20px", // Adjust between 10px and 40px
+
+        // Space between the first and second row of stats
+        // Increase for more vertical space between rows
+        rowGap: "24px", // Adjust between 16px and 32px
+    }
+
+    // -------------------- STATS BOX STYLING --------------------
+    // These control the appearance and sizing of individual stat boxes
+
+    const statsBoxStyles = {
+        // Internal padding within each stats box
+        // Increase for larger boxes, decrease for smaller
+        padding: "14px", // Try values between 10px and 18px
+
+        // Box shadow for the glow effect
+        // Increase last value (0.2) for stronger glow
+        boxShadow: "inset 0 0 10px rgba(253, 93, 0, 0.2)",
+
+        // Corner radius for the stats boxes
+        // Increase for more rounded corners
+        borderRadius: "12px", // Try values between 8px and 16px
+    }
+
+    // -------------------- LIGHTNING AND HEADER POSITIONING --------------------
+    // These control the positioning of the lightning image and "YOUR ONCHAIN stats" text
+
+    const headerStyles = {
+        // Space between lightning image and stats text
+        marginRight: "6px", // Adjust between 4px and 10px
+
+        // Space below the header before the stats grid
+        marginBottom: "16px", // Adjust between 10px and 24px
+
+        // Lightning image size
+        lightningWidth: "28px", // Adjust between 24px and 32px
+    }
+
     return (
         <div className="overflow-hidden relative w-full min-h-screen font-mono text-white">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
-                <img src={bgImg} alt="Background" className="object-cover w-full h-full" />
+                <img src={bgImg || "/placeholder.svg"} alt="Background" className="object-cover w-full h-full" />
             </div>
 
             {/* Main Content Container */}
@@ -58,7 +164,7 @@ const HeroPage = () => {
                 <header className="px-6 py-4">
                     <div className="flex justify-between items-center px-6 py-3 mx-auto max-w-7xl rounded-full border backdrop-blur-sm bg-black/30 border-gray-800/30">
                         <div className="flex items-center">
-                            <img src={rektIdLogo} alt="rekt.id" className="w-auto h-8" />
+                            <img src={rektIdLogo || "/placeholder.svg"} alt="rekt.id" className="w-auto h-8" />
                         </div>
                         <nav className="hidden items-center space-x-8 md:flex">
                             <a href="#" className="text-white transition hover:text-orange-400">
@@ -81,10 +187,10 @@ const HeroPage = () => {
                         <div className="flex flex-col justify-between items-start mb-12 md:flex-row md:items-center">
                             <div className="flex items-center">
                                 <img
-                                    src={chainhubLogo}
+                                    src={chainhubLogo || "/placeholder.svg"}
                                     alt="ChainHub Logo"
                                     className="mr-4 w-20 h-20"
-                                    style={{ transform: 'rotate(180deg)' }}
+                                    style={{ transform: "rotate(180deg)" }}
                                 />
                                 <div>
                                     <h1 className="text-4xl font-bold tracking-wider md:text-5xl">CHAINHUB</h1>
@@ -94,7 +200,7 @@ const HeroPage = () => {
 
                             {/* User Profile */}
                             <div className="flex items-center px-4 py-2 mt-6 rounded-full border backdrop-blur-sm md:mt-0 bg-black/40 border-gray-800/30">
-                                <img src={avatarImg} alt="User Avatar" className="mr-3 w-10 h-10 rounded-full" />
+                                <img src={avatarImg || "/placeholder.svg"} alt="User Avatar" className="mr-3 w-10 h-10 rounded-full" />
                                 <div>
                                     <div className="flex items-center">
                                         <span className="font-medium">Sahil Gupta</span>
@@ -116,7 +222,7 @@ const HeroPage = () => {
                                         {/* Total Holdings */}
                                         <div className="overflow-hidden relative h-40 rounded-xl">
                                             <img
-                                                src={rectangleGradientBox}
+                                                src={rectangleGradientBox || "/placeholder.svg"}
                                                 alt="Holdings Background"
                                                 className="object-cover absolute inset-0 w-full h-full"
                                             />
@@ -177,47 +283,119 @@ const HeroPage = () => {
                                         </div>
                                     </div>
 
-                                    {/* Stats Section */}
-                                    <div className="relative mt-20">
-                                        {/* Stats Header with Lightning and Connection Points */}
-                                        <div className="flex relative items-start mb-16">
-                                            {/* Lightning with Stats Text */}
-                                            <div className="flex relative z-20 items-center">
-                                                <div className="mr-4 lightning-container">
-                                                    <img src={lightingImg} alt="Lightning" className="w-28 h-auto" />
-                                                </div>
-                                                <div className="stats-text">
-                                                    <div className="text-2xl font-bold gradient-text-orange">YOUR ONCHAIN</div>
-                                                    <div className="text-6xl italic font-bold">stats</div>
-                                                </div>
+                                    {/* Stats Section with Vector Background and Connector Dots */}
+                                    <div
+                                        className="relative"
+                                        style={{
+                                            marginTop: statsGridSpacing.marginTop
+                                        }}
+                                    >
+                                        {/* Lightning and Stats Header - Title Section */}
+                                        <div className="flex items-start" style={{ marginBottom: headerStyles.marginBottom }}>
+                                            <div className="relative" style={{ marginRight: headerStyles.marginRight }}>
+                                                {/* Lightning image - adjust width in headerStyles */}
+                                                <img
+                                                    src={lightingImg || "/placeholder.svg"}
+                                                    alt="Lightning"
+                                                    className="lightning-img"
+                                                    style={{ width: headerStyles.lightningWidth + "px", height: "auto" }}
+                                                />
                                             </div>
-
-                                            {/* Connection Lines and Dots */}
-                                            <div className="absolute top-0 -right-6 z-10 connection-lines">
-                                                <div className="relative connection-line">
-                                                    {/* First Yellow Dot with Line */}
-                                                    <div className="absolute top-4 -right-4">
-                                                        <img src={yellowDot} alt="Connection Dot" className="w-12 h-12" />
-                                                    </div>
-                                                    <div className="absolute right-1 top-14 w-1 h-32 bg-orange-500/30"></div>
-
-                                                    {/* Second Yellow Dot with Line */}
-                                                    <div className="absolute -right-4 top-52">
-                                                        <img src={yellowDot} alt="Connection Dot" className="w-12 h-12" />
-                                                    </div>
-                                                    <div className="absolute right-1 top-60 w-1 h-36 bg-orange-500/30"></div>
-                                                </div>
+                                            {/* Stats title */}
+                                            <div className="stats-header">
+                                                <div className="text-2xl font-bold gradient-text-orange">YOUR ONCHAIN</div>
+                                                <div className="text-6xl italic font-bold">stats</div>
                                             </div>
                                         </div>
 
-                                        {/* Stats Boxes */}
-                                        <div className="stats-grid">
-                                            {/* First Row */}
-                                            <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-4">
+                                        {/* Vector Lines Background - KEY ELEMENT TO ADJUST */}
+                                        {/* This is the orange path that contains all the stats */}
+                                        <div
+                                            className="absolute pointer-events-none"
+                                            style={{
+                                                zIndex: 1,
+                                                // Position adjustments from vectorPositionStyles
+                                                left: vectorPositionStyles.left,
+                                                top: vectorPositionStyles.top,
+                                                width: vectorPositionStyles.width,
+                                                height: vectorPositionStyles.height,
+                                                // Uncomment to see the bounds of the vector container:
+                                                // border: "1px solid red" 
+                                            }}
+                                        >
+                                            <img
+                                                src={linesVector || "/placeholder.svg"}
+                                                alt="Vector Lines"
+                                                className="object-contain w-full h-full vector-lines"
+                                            />
+                                        </div>
+
+                                        {/* First Connector Dot - TOP POSITION */}
+                                        {/* This is the first yellow dot that connects to the vector path */}
+                                        <div
+                                            className="absolute"
+                                            style={{
+                                                top: connector1Position.top,
+                                                left: connector1Position.left,
+                                                zIndex: 10,
+                                                // Uncomment to see connector position:
+                                                // border: "1px solid green"
+                                            }}
+                                        >
+                                            <div className="relative">
+                                                <img src={yellowDot || "/placeholder.svg"} alt="Connector Dot" className="w-9 h-9" />
+                                            </div>
+                                        </div>
+
+                                        {/* Second Connector Dot - BOTTOM POSITION */}
+                                        {/* This is the second yellow dot that connects to the vector path */}
+                                        <div
+                                            className="absolute"
+                                            style={{
+                                                top: connector2Position.top,
+                                                left: connector2Position.left,
+                                                zIndex: 10,
+                                                // Uncomment to see connector position:
+                                                // border: "1px solid green"
+                                            }}
+                                        >
+                                            <div className="relative">
+                                                <img src={yellowDot2 || "/placeholder.svg"} alt="Connector Dot" className="w-9 h-9" />
+                                            </div>
+                                        </div>
+
+                                        {/* Stats Grid - Positioned inside the vector path */}
+                                        {/* This contains all the transaction data boxes */}
+                                        <div
+                                            className="relative"
+                                            style={{
+                                                zIndex: 5,
+                                                // Padding to position stats within vector
+                                                paddingLeft: statsGridSpacing.paddingLeft,
+                                                paddingRight: statsGridSpacing.paddingRight,
+                                                // Uncomment to see stats container bounds:
+                                                // border: "1px solid blue"
+                                            }}
+                                        >
+                                            {/* First Row of Stats */}
+                                            <div
+                                                className="grid grid-cols-4"
+                                                style={{
+                                                    gap: statsGridSpacing.gap,
+                                                    marginBottom: statsGridSpacing.rowGap
+                                                }}
+                                            >
                                                 {/* First Transaction */}
                                                 <div>
-                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">First Transaction</div>
-                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="mb-2 text-sm gradient-text-orange">First Transaction</div>
+                                                    <div
+                                                        className="bg-black/50 stats-box"
+                                                        style={{
+                                                            padding: statsBoxStyles.padding,
+                                                            boxShadow: statsBoxStyles.boxShadow,
+                                                            borderRadius: statsBoxStyles.borderRadius
+                                                        }}
+                                                    >
                                                         <div className="text-xs text-orange-500">11:53 UTC</div>
                                                         <div className="text-xl text-orange-500 monospace-numbers">12-06-2018</div>
                                                     </div>
@@ -225,8 +403,15 @@ const HeroPage = () => {
 
                                                 {/* Latest Transaction */}
                                                 <div>
-                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">Latest Transaction</div>
-                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="mb-2 text-sm gradient-text-orange">Latest Transaction</div>
+                                                    <div
+                                                        className="bg-black/50 stats-box"
+                                                        style={{
+                                                            padding: statsBoxStyles.padding,
+                                                            boxShadow: statsBoxStyles.boxShadow,
+                                                            borderRadius: statsBoxStyles.borderRadius
+                                                        }}
+                                                    >
                                                         <div className="text-xs text-orange-500">01:11 UTC</div>
                                                         <div className="text-xl text-orange-500 monospace-numbers">15-04-2025</div>
                                                     </div>
@@ -234,51 +419,96 @@ const HeroPage = () => {
 
                                                 {/* High Value Transaction */}
                                                 <div>
-                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">High Value Transaction</div>
-                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="mb-2 text-sm gradient-text-orange">High Value Transaction</div>
+                                                    <div
+                                                        className="bg-black/50 stats-box"
+                                                        style={{
+                                                            padding: statsBoxStyles.padding,
+                                                            boxShadow: statsBoxStyles.boxShadow,
+                                                            borderRadius: statsBoxStyles.borderRadius
+                                                        }}
+                                                    >
                                                         <div className="text-2xl text-orange-500 monospace-numbers">$18,765.08</div>
                                                     </div>
                                                 </div>
 
                                                 {/* Cumulative Gas Fees */}
                                                 <div>
-                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">Cumulative Gas Fees</div>
-                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="mb-2 text-sm gradient-text-orange">Cumulative Gas Fees</div>
+                                                    <div
+                                                        className="bg-black/50 stats-box"
+                                                        style={{
+                                                            padding: statsBoxStyles.padding,
+                                                            boxShadow: statsBoxStyles.boxShadow,
+                                                            borderRadius: statsBoxStyles.borderRadius
+                                                        }}
+                                                    >
                                                         <div className="text-2xl text-orange-500 monospace-numbers">$1,865.08</div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            {/* Second Row */}
-                                            <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+                                            {/* Second Row of Stats */}
+                                            <div
+                                                className="grid grid-cols-4"
+                                                style={{ gap: statsGridSpacing.gap }}
+                                            >
                                                 {/* Total Amount Staked */}
                                                 <div>
-                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">Total Amount Staked</div>
-                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="mb-2 text-sm gradient-text-orange">Total Amount Staked</div>
+                                                    <div
+                                                        className="bg-black/50 stats-box"
+                                                        style={{
+                                                            padding: statsBoxStyles.padding,
+                                                            boxShadow: statsBoxStyles.boxShadow,
+                                                            borderRadius: statsBoxStyles.borderRadius
+                                                        }}
+                                                    >
                                                         <div className="text-2xl text-orange-500 monospace-numbers">$665.08</div>
                                                     </div>
                                                 </div>
 
                                                 {/* Total NFTs Minted */}
                                                 <div>
-                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">Total NFTs Minted</div>
-                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="mb-2 text-sm gradient-text-orange">Total NFTs Minted</div>
+                                                    <div
+                                                        className="bg-black/50 stats-box"
+                                                        style={{
+                                                            padding: statsBoxStyles.padding,
+                                                            boxShadow: statsBoxStyles.boxShadow,
+                                                            borderRadius: statsBoxStyles.borderRadius
+                                                        }}
+                                                    >
                                                         <div className="text-2xl text-orange-500 monospace-numbers">478</div>
                                                     </div>
                                                 </div>
 
                                                 {/* Total No Of Transactions */}
                                                 <div>
-                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">Total No Of Transactions</div>
-                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="mb-2 text-sm gradient-text-orange">Total No Of Transactions</div>
+                                                    <div
+                                                        className="bg-black/50 stats-box"
+                                                        style={{
+                                                            padding: statsBoxStyles.padding,
+                                                            boxShadow: statsBoxStyles.boxShadow,
+                                                            borderRadius: statsBoxStyles.borderRadius
+                                                        }}
+                                                    >
                                                         <div className="text-2xl text-orange-500 monospace-numbers">1,785</div>
                                                     </div>
                                                 </div>
 
                                                 {/* Total Token Holdings */}
                                                 <div>
-                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">Total Token Holdings</div>
-                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="mb-2 text-sm gradient-text-orange">Total Token Holdings</div>
+                                                    <div
+                                                        className="bg-black/50 stats-box"
+                                                        style={{
+                                                            padding: statsBoxStyles.padding,
+                                                            boxShadow: statsBoxStyles.boxShadow,
+                                                            borderRadius: statsBoxStyles.borderRadius
+                                                        }}
+                                                    >
                                                         <div className="text-2xl text-orange-500 monospace-numbers">547</div>
                                                     </div>
                                                 </div>
@@ -289,16 +519,16 @@ const HeroPage = () => {
 
                                 {/* Right Column - Chain Selector */}
                                 <div className="col-span-1">
-                                    <div className="mb-4 text-lg font-bold tracking-wide text-center jersey-font">SELECT YOUR CHAIN</div>
-                                    <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-2">
+                                    <div className="mb-6 text-lg font-bold tracking-wide text-center jersey-font">SELECT YOUR CHAIN</div>
+                                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                                         {chains.map((chain) => (
                                             <div
                                                 key={chain.id}
                                                 onClick={() => handleChainSelect(chain.id)}
-                                                className={`chain-selector-item ${selectedChain === chain.id
+                                                className={`chain-selector-item flex items-center p-3 rounded-xl cursor-pointer ${selectedChain === chain.id
                                                     ? "bg-gradient-to-r from-[#FFAA79] to-[#FD5D00]"
                                                     : "bg-black/40 hover:bg-black/60"
-                                                    } rounded-xl p-3 flex items-center cursor-pointer`}
+                                                    }`}
                                             >
                                                 <img src={chain.logo || "/placeholder.svg"} alt={chain.name} className="mr-3 w-6 h-6" />
                                                 <span className={`jersey-font ${selectedChain === chain.id ? "font-medium" : ""}`}>{chain.name}</span>
@@ -310,11 +540,6 @@ const HeroPage = () => {
                         </div>
                     </div>
                 </main>
-            </div>
-
-            {/* Vector Lines at Bottom */}
-            <div className="absolute bottom-0 left-0 z-0 w-full">
-                <img src={linesVector} alt="Vector Lines" className="w-full vector-lines" />
             </div>
         </div>
     )
