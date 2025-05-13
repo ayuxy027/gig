@@ -51,22 +51,11 @@ const HeroPage = () => {
     // -------------------- VECTOR PATH POSITIONING --------------------
     // These control the background vector that contains the transaction stats
     const vectorPositionStyles = {
-        // Adjust left to move vector horizontally (negative = left, positive = right)
-        // ADJUST THIS VALUE: Increase for moving right, decrease for moving left
-        // Current adjustment: moved right by 70px from previous position
-        left: "-5px", // Try values between -80px and +50px to position correctly
-
-        // Adjust top to move vector vertically (negative = up, positive = down)
-        // Increase this value to move the vector down if stats boxes are too high
-        top: "50px", // Try values between 0px and 100px
-
-        // Adjust width to ensure vector covers all stat boxes
-        // Increase this value if stats boxes extend beyond the vector edges
-        width: "calc(100% + 130px)", // Try between 100% and 130% of container width
-
-        // Adjust height to ensure vector covers all stat boxes vertically
-        // Increase if bottom stats are outside the vector
-        height: "450px", // Try values between 400px and 500px
+        right: "-50px",  // More negative value to shift further right
+        top: "60px",    // Adjusted to align better with the title text
+        width: "calc(100% + 100px)",  // Adjusted width
+        height: "450px", // Maintained height
+        zIndex: 1,     // Ensure it's behind the stats content
     }
 
     // -------------------- YELLOW DOT CONNECTOR POSITIONING --------------------
@@ -74,26 +63,14 @@ const HeroPage = () => {
 
     // FIRST CONNECTOR DOT (Top dot)
     const connector1Position = {
-        // Vertical position from the top of the stats section
-        // Increase to move down, decrease to move up
-        top: "70px", // Adjust between 50px and 100px
-
-        // Horizontal position from the left of the container
-        // Increase to move right, decrease to move left
-        // This should align with the curve in the vector path
-        left: "150px", // Adjust between 120px and 200px
+        top: "80px",   // Adjusted to align with the light plug
+        left: "140px", // Positioned to connect with the light plug
     }
 
     // SECOND CONNECTOR DOT (Bottom dot)
     const connector2Position = {
-        // Vertical position from the top of the stats section
-        // This position should align with the bottom curve of the vector
-        // Increase to move down, decrease to move up
-        top: "270px", // Adjust between 250px and 300px
-
-        // Horizontal position from the left of the container
-        // Usually should match the horizontal position of the first connector
-        left: "150px", // Adjust between 120px and 200px
+        top: "320px",  // Adjusted to align with the second light plug
+        left: "140px", // Positioned to connect with the light plug
     }
 
     // -------------------- STATS GRID SPACING AND POSITIONING --------------------
@@ -101,23 +78,17 @@ const HeroPage = () => {
 
     const statsGridSpacing = {
         // Space between individual stat boxes (horizontal and vertical)
-        // Increase for more spacing, decrease for tighter layout
-        gap: "16px", // Try values between 12px and 24px
+        gap: "16px",     // Adjusted for better fit
 
         // Top margin of the entire stats section
-        // Increase to move stats grid down, decrease to move up
-        // This affects the space between the heading and first row of stats
-        marginTop: "120px", // Adjust between 100px and 150px
+        marginTop: "100px", // Kept the same
 
         // Horizontal padding to center the stats within the vector
-        // Adjust these values to shift the entire stats grid left or right
-        // Increase left padding to move stats right, right padding to move left
-        paddingLeft: "60px", // Adjust between 35px and 80px
-        paddingRight: "20px", // Adjust between 10px and 40px
+        paddingLeft: "40px",  // Reduced to fit stats in narrower space
+        paddingRight: "0px", // Adjusted to fit content right-aligned
 
         // Space between the first and second row of stats
-        // Increase for more vertical space between rows
-        rowGap: "24px", // Adjust between 16px and 32px
+        rowGap: "24px", // Maintained for good vertical spacing
     }
 
     // -------------------- STATS BOX STYLING --------------------
@@ -142,13 +113,13 @@ const HeroPage = () => {
 
     const headerStyles = {
         // Space between lightning image and stats text
-        marginRight: "6px", // Adjust between 4px and 10px
+        marginRight: "8px", // Increased from 6px to 8px
 
         // Space below the header before the stats grid
-        marginBottom: "16px", // Adjust between 10px and 24px
+        marginBottom: "20px", // Increased from 16px to 20px for better spacing
 
         // Lightning image size
-        lightningWidth: "28px", // Adjust between 24px and 32px
+        lightningWidth: "32px", // Increased from 28px to 32px for better visibility
     }
 
     return (
@@ -291,7 +262,12 @@ const HeroPage = () => {
                                         }}
                                     >
                                         {/* Lightning and Stats Header - Title Section */}
-                                        <div className="flex items-start" style={{ marginBottom: headerStyles.marginBottom }}>
+                                        <div className="flex items-start" style={{
+                                            marginBottom: headerStyles.marginBottom,
+                                            position: "relative",
+                                            zIndex: 10,
+                                            marginLeft: "40px" // Added margin to move title more to the right
+                                        }}>
                                             <div className="relative" style={{ marginRight: headerStyles.marginRight }}>
                                                 {/* Lightning image - adjust width in headerStyles */}
                                                 <img
@@ -313,14 +289,12 @@ const HeroPage = () => {
                                         <div
                                             className="absolute pointer-events-none"
                                             style={{
-                                                zIndex: 1,
                                                 // Position adjustments from vectorPositionStyles
-                                                left: vectorPositionStyles.left,
+                                                right: vectorPositionStyles.right,
                                                 top: vectorPositionStyles.top,
                                                 width: vectorPositionStyles.width,
                                                 height: vectorPositionStyles.height,
-                                                // Uncomment to see the bounds of the vector container:
-                                                // border: "1px solid red" 
+                                                zIndex: vectorPositionStyles.zIndex,
                                             }}
                                         >
                                             <img
@@ -373,8 +347,8 @@ const HeroPage = () => {
                                                 // Padding to position stats within vector
                                                 paddingLeft: statsGridSpacing.paddingLeft,
                                                 paddingRight: statsGridSpacing.paddingRight,
-                                                // Uncomment to see stats container bounds:
-                                                // border: "1px solid blue"
+                                                position: "relative", // Ensures proper stacking
+                                                right: "-40px", // Shifts the stats grid further right to align with vector
                                             }}
                                         >
                                             {/* First Row of Stats */}
@@ -382,7 +356,10 @@ const HeroPage = () => {
                                                 className="grid grid-cols-4"
                                                 style={{
                                                     gap: statsGridSpacing.gap,
-                                                    marginBottom: statsGridSpacing.rowGap
+                                                    marginBottom: statsGridSpacing.rowGap,
+                                                    width: "90%", // Added to ensure stats fit inside vector
+                                                    marginLeft: "auto", // Aligns to the right
+                                                    marginRight: "30px" // Gives some margin on the right
                                                 }}
                                             >
                                                 {/* First Transaction */}
@@ -451,7 +428,12 @@ const HeroPage = () => {
                                             {/* Second Row of Stats */}
                                             <div
                                                 className="grid grid-cols-4"
-                                                style={{ gap: statsGridSpacing.gap }}
+                                                style={{
+                                                    gap: statsGridSpacing.gap,
+                                                    width: "90%", // Added to ensure stats fit inside vector
+                                                    marginLeft: "auto", // Aligns to the right
+                                                    marginRight: "30px" // Gives some margin on the right
+                                                }}
                                             >
                                                 {/* Total Amount Staked */}
                                                 <div>

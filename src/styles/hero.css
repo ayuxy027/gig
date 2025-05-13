@@ -23,36 +23,39 @@ body {
 /* Vector lines styling - this is the orange path background */
 .vector-lines {
   /* Adjust opacity to make the vector more/less prominent */
-  opacity: 0.8;
+  opacity: 1; /* Increased from 0.9 for better visibility */
   /* These ensure the vector takes up the full container */
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
   /* Keep vector behind stats but above background */
   z-index: 1;
   pointer-events: none;
+  transform: translateX(5%); /* Shifting right slightly to better align */
 }
 
 /* Yellow connector dots styling */
 img[alt="Connector Dot"] {
   /* Adjust glow intensity with drop-shadow values */
-  filter: drop-shadow(0 0 8px rgba(255, 234, 0, 0.6));
+  filter: drop-shadow(0 0 10px rgba(255, 234, 0, 0.7));
   /* Pulsing animation for the dots */
   animation: connector-pulse 4s infinite alternate;
   position: relative;
   z-index: 10;
+  width: 10px;
+  height: 10px;
 }
 
 @keyframes connector-pulse {
   0% {
-    filter: drop-shadow(0 0 6px rgba(255, 234, 0, 0.4));
+    filter: drop-shadow(0 0 8px rgba(255, 234, 0, 0.5));
     transform: scale(1);
   }
   100% {
-    filter: drop-shadow(0 0 14px rgba(255, 234, 0, 0.8));
-    transform: scale(1.1);
+    filter: drop-shadow(0 0 16px rgba(255, 234, 0, 0.9));
+    transform: scale(1.15);
   }
 }
 
@@ -138,8 +141,8 @@ img[alt="Connector Dot"] {
   
   /* Connector dots size for smaller screens */
   img[alt="Connector Dot"] {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
   }
 
   /* Change grid to 2 columns instead of 4 on smaller screens */
@@ -149,7 +152,7 @@ img[alt="Connector Dot"] {
   
   /* Adjust vector position for smaller screens */
   .vector-lines {
-    transform: scale(0.9) translateX(-5%);
+    transform: scale(0.9) translateX(5%);
   }
 }
 
