@@ -8,9 +8,9 @@ import rektIdLogo from "../assets/hero-page/rekt-id-logo.png"
 import chainhubLogo from "../assets/hero-page/chainhub-logo.png"
 import avatarImg from "../assets/hero-page/avatar.png"
 import rectangleGradientBox from "../assets/hero-page/rectangle gradient box.png"
-import lightPlug from "../assets/hero-page/lines effect/Container-1.svg"
 import lightingImg from "../assets/hero-page/lighting-img.png"
-import linesVectorSvg from "../assets/hero-page/lines effect/Vector 2.svg"
+import yellowDot from "../assets/hero-page/lines effect/Container-1.svg"
+import linesVector from "../assets/hero-page/lines effect/Vector 2.svg"
 import ethLogo from "../assets/hero-page/logo/eth-logo.png"
 import binanceLogo from "../assets/hero-page/logo/binance-logo.png"
 import polygonLogo from "../assets/hero-page/logo/polygon-logo.png"
@@ -178,104 +178,109 @@ const HeroPage = () => {
                                     </div>
 
                                     {/* Stats Section */}
-                                    <div className="relative mt-12">
-                                        {/* YOUR ONCHAIN Stats Section with Connections */}
-                                        <div className="flex relative items-start mb-12">
-                                            {/* Left side - lightning icon and stats text */}
-                                            <div className="flex relative items-center">
-                                                <div className="mr-3 lightning-container">
-                                                    <img src={lightingImg} alt="Lightning" className="w-24 h-auto" />
+                                    <div className="relative mt-20">
+                                        {/* Stats Header with Lightning and Connection Points */}
+                                        <div className="flex relative items-start mb-16">
+                                            {/* Lightning with Stats Text */}
+                                            <div className="flex relative z-20 items-center">
+                                                <div className="mr-4 lightning-container">
+                                                    <img src={lightingImg} alt="Lightning" className="w-28 h-auto" />
                                                 </div>
                                                 <div className="stats-text">
                                                     <div className="text-2xl font-bold gradient-text-orange">YOUR ONCHAIN</div>
-                                                    <div className="text-5xl italic font-bold">stats</div>
+                                                    <div className="text-6xl italic font-bold">stats</div>
                                                 </div>
                                             </div>
 
-                                            {/* Connection lines with dots */}
-                                            <div className="absolute -right-4 top-1/2 transform -translate-y-1/2">
+                                            {/* Connection Lines and Dots */}
+                                            <div className="absolute top-0 -right-6 z-10 connection-lines">
                                                 <div className="relative connection-line">
-                                                    <div className="absolute w-3 h-3 bg-yellow-400 rounded-full connection-dot" style={{ left: '0px', top: '-25px' }}></div>
-                                                    <div className="absolute w-3 h-3 bg-yellow-400 rounded-full connection-dot" style={{ left: '0px', top: '20px' }}></div>
+                                                    {/* First Yellow Dot with Line */}
+                                                    <div className="absolute top-4 -right-4">
+                                                        <img src={yellowDot} alt="Connection Dot" className="w-12 h-12" />
+                                                    </div>
+                                                    <div className="absolute right-1 top-14 w-1 h-32 bg-orange-500/30"></div>
+
+                                                    {/* Second Yellow Dot with Line */}
+                                                    <div className="absolute -right-4 top-52">
+                                                        <img src={yellowDot} alt="Connection Dot" className="w-12 h-12" />
+                                                    </div>
+                                                    <div className="absolute right-1 top-60 w-1 h-36 bg-orange-500/30"></div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        {/* Decorative Light Plugs */}
-                                        <div className="absolute -top-10 -left-10">
-                                            <img src={lightPlug} alt="Light Plug 1" className="w-16 h-16 light-plug" />
-                                            <div className="light-connection-line"></div>
-                                        </div>
-                                        <div className="absolute left-[25%] -top-8">
-                                            <img src={lightPlug} alt="Light Plug 2" className="w-16 h-16 light-plug" />
-                                            <div className="light-connection-line"></div>
-                                        </div>
+                                        {/* Stats Boxes */}
+                                        <div className="stats-grid">
+                                            {/* First Row */}
+                                            <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-4">
+                                                {/* First Transaction */}
+                                                <div>
+                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">First Transaction</div>
+                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                        <div className="text-xs text-orange-500">11:53 UTC</div>
+                                                        <div className="text-xl text-orange-500 monospace-numbers">12-06-2018</div>
+                                                    </div>
+                                                </div>
 
-                                        {/* Stats Grid */}
-                                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-                                            {/* First Transaction */}
-                                            <div>
-                                                <div className="mb-2 text-sm font-medium gradient-text-orange">First Transaction</div>
-                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
-                                                    <div className="text-xs text-orange-500">11:53 UTC</div>
-                                                    <div className="text-xl text-orange-500 monospace-numbers">12-06-2018</div>
+                                                {/* Latest Transaction */}
+                                                <div>
+                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">Latest Transaction</div>
+                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                        <div className="text-xs text-orange-500">01:11 UTC</div>
+                                                        <div className="text-xl text-orange-500 monospace-numbers">15-04-2025</div>
+                                                    </div>
+                                                </div>
+
+                                                {/* High Value Transaction */}
+                                                <div>
+                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">High Value Transaction</div>
+                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                        <div className="text-2xl text-orange-500 monospace-numbers">$18,765.08</div>
+                                                    </div>
+                                                </div>
+
+                                                {/* Cumulative Gas Fees */}
+                                                <div>
+                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">Cumulative Gas Fees</div>
+                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                        <div className="text-2xl text-orange-500 monospace-numbers">$1,865.08</div>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            {/* Latest Transaction */}
-                                            <div>
-                                                <div className="mb-2 text-sm font-medium gradient-text-orange">Latest Transaction</div>
-                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
-                                                    <div className="text-xs text-orange-500">01:11 UTC</div>
-                                                    <div className="text-xl text-orange-500 monospace-numbers">15-04-2025</div>
+                                            {/* Second Row */}
+                                            <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+                                                {/* Total Amount Staked */}
+                                                <div>
+                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">Total Amount Staked</div>
+                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                        <div className="text-2xl text-orange-500 monospace-numbers">$665.08</div>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            {/* High Value Transaction */}
-                                            <div>
-                                                <div className="mb-2 text-sm font-medium gradient-text-orange">High Value Transaction</div>
-                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
-                                                    <div className="text-2xl text-orange-500 monospace-numbers">$18,765.08</div>
+                                                {/* Total NFTs Minted */}
+                                                <div>
+                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">Total NFTs Minted</div>
+                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                        <div className="text-2xl text-orange-500 monospace-numbers">478</div>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            {/* Cumulative Gas Fees */}
-                                            <div>
-                                                <div className="mb-2 text-sm font-medium gradient-text-orange">Cumulative Gas Fees</div>
-                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
-                                                    <div className="text-2xl text-orange-500 monospace-numbers">$1,865.08</div>
+                                                {/* Total No Of Transactions */}
+                                                <div>
+                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">Total No Of Transactions</div>
+                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                        <div className="text-2xl text-orange-500 monospace-numbers">1,785</div>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            {/* Total Amount Staked */}
-                                            <div>
-                                                <div className="mb-2 text-sm font-medium gradient-text-orange">Total Amount Staked</div>
-                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
-                                                    <div className="text-2xl text-orange-500 monospace-numbers">$665.08</div>
-                                                </div>
-                                            </div>
-
-                                            {/* Total NFTs Minted */}
-                                            <div>
-                                                <div className="mb-2 text-sm font-medium gradient-text-orange">Total NFTs Minted</div>
-                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
-                                                    <div className="text-2xl text-orange-500 monospace-numbers">478</div>
-                                                </div>
-                                            </div>
-
-                                            {/* Total No Of Transactions */}
-                                            <div>
-                                                <div className="mb-2 text-sm font-medium gradient-text-orange">Total No Of Transactions</div>
-                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
-                                                    <div className="text-2xl text-orange-500 monospace-numbers">1,785</div>
-                                                </div>
-                                            </div>
-
-                                            {/* Total Token Holdings */}
-                                            <div>
-                                                <div className="mb-2 text-sm font-medium gradient-text-orange">Total Token Holdings</div>
-                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
-                                                    <div className="text-2xl text-orange-500 monospace-numbers">547</div>
+                                                {/* Total Token Holdings */}
+                                                <div>
+                                                    <div className="mb-2 text-sm font-medium gradient-text-orange">Total Token Holdings</div>
+                                                    <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                        <div className="text-2xl text-orange-500 monospace-numbers">547</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -284,8 +289,8 @@ const HeroPage = () => {
 
                                 {/* Right Column - Chain Selector */}
                                 <div className="col-span-1">
-                                    <div className="mb-4 text-lg font-medium tracking-wide text-center uppercase">SELECT YOUR CHAIN</div>
-                                    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-2">
+                                    <div className="mb-4 text-lg font-bold tracking-wide text-center jersey-font">SELECT YOUR CHAIN</div>
+                                    <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-2">
                                         {chains.map((chain) => (
                                             <div
                                                 key={chain.id}
@@ -296,7 +301,7 @@ const HeroPage = () => {
                                                     } rounded-xl p-3 flex items-center cursor-pointer`}
                                             >
                                                 <img src={chain.logo || "/placeholder.svg"} alt={chain.name} className="mr-3 w-6 h-6" />
-                                                <span className={selectedChain === chain.id ? "font-medium" : ""}>{chain.name}</span>
+                                                <span className={`jersey-font ${selectedChain === chain.id ? "font-medium" : ""}`}>{chain.name}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -307,12 +312,9 @@ const HeroPage = () => {
                 </main>
             </div>
 
-            {/* Decorative Lines with connections to light plugs */}
+            {/* Vector Lines at Bottom */}
             <div className="absolute bottom-0 left-0 z-0 w-full">
-                <img src={linesVectorSvg} alt="Decorative Lines" className="w-full" />
-
-                <div className="light-to-lines-connector left-connector"></div>
-                <div className="light-to-lines-connector right-connector"></div>
+                <img src={linesVector} alt="Vector Lines" className="w-full vector-lines" />
             </div>
         </div>
     )

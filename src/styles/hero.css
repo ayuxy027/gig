@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jersey+10:wght@400;700&display=swap");
 
 body {
   margin: 0;
@@ -7,6 +8,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #000;
   color: #fff;
+}
+
+/* Jersey font for chain selector */
+.jersey-font {
+  font-family: "Jersey 10", "DM Mono", monospace;
+  letter-spacing: 0.5px;
 }
 
 /* Gradient text for orange headings */
@@ -61,20 +68,77 @@ body {
   z-index: 3;
 }
 
-/* Connection dots styling */
-.connection-dot {
-  box-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
-  animation: dot-pulse 3s infinite alternate;
+/* Connection lines and dots styling */
+.connection-lines {
+  position: relative;
+}
+
+.connection-line {
+  position: relative;
+}
+
+/* Connection dots animation */
+img[alt="Connection Dot"] {
+  animation: dot-pulse 4s infinite alternate;
 }
 
 @keyframes dot-pulse {
   0% {
-    box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+    filter: drop-shadow(0 0 5px rgba(255, 234, 0, 0.5));
     transform: scale(1);
   }
   100% {
-    box-shadow: 0 0 12px rgba(255, 204, 0, 0.8);
-    transform: scale(1.15);
+    filter: drop-shadow(0 0 12px rgba(255, 234, 0, 0.8));
+    transform: scale(1.08);
+  }
+}
+
+/* Vector lines styling */
+.vector-lines {
+  position: relative;
+  width: 100%;
+  height: auto;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+/* Chain selector styling */
+.chain-selector-item {
+  transition: all 0.2s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chain-selector-item:hover:not(.selected) {
+  transform: translateY(-2px);
+  border-color: rgba(253, 93, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Stats grid layout */
+.stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .lightning-container img {
+    width: 80px !important;
+    height: auto !important;
+  }
+  
+  img[alt="Connection Dot"] {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .connection-line {
+    transform: scale(0.8);
+  }
+  
+  .vector-lines {
+    transform: translateY(20px);
   }
 }
 
@@ -129,38 +193,10 @@ body {
   top: 0;
 }
 
-/* Chain selector styling */
-.chain-selector-item {
-  transition: all 0.2s ease-in-out;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.chain-selector-item:hover:not(.selected) {
-  transform: translateY(-2px);
-  border-color: rgba(253, 93, 0, 0.3);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
 /* Lines vector styling enhancement */
 img[alt="Decorative Lines"] {
   opacity: 0.5;
   transform: translateY(20%);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .light-plug {
-    transform: scale(0.8);
-  }
-  
-  .lightning-container img {
-    width: 80px !important;
-    height: auto !important;
-  }
-  
-  .light-connection-line {
-    height: 80px;
-  }
 }
 
 /* Custom sizes for images */
