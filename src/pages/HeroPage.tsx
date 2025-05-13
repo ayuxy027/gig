@@ -1,367 +1,321 @@
 "use client"
 
-import type React from "react"
-import { useState, useEffect } from "react"
-import { Menu } from "lucide-react"
-import type { NavItem, ChainOption } from "../types"
-import {
-    CircleDot,
-    Diamond,
-    Hexagon,
-    TriangleAlert,
-    Sparkles,
-    CircleEllipsis
-} from "lucide-react"
+import { useState } from "react"
+import "../styles/hero.css"
+// Import all images as modules
+import bgImg from "../assets/hero-page/bg-img.png"
+import rektIdLogo from "../assets/hero-page/rekt-id-logo.png"
+import chainhubLogo from "../assets/hero-page/chainhub-logo.png"
+import avatarImg from "../assets/hero-page/avatar.png"
+import rectangleGradientBox from "../assets/hero-page/rectangle gradient box.png"
+import lightPlug from "../assets/hero-page/lines effect/Container-1.svg"
+import lightingImg from "../assets/hero-page/lighting-img.png"
+import linesVectorSvg from "../assets/hero-page/lines effect/Vector 2.svg"
+import ethLogo from "../assets/hero-page/logo/eth-logo.png"
+import binanceLogo from "../assets/hero-page/logo/binance-logo.png"
+import polygonLogo from "../assets/hero-page/logo/polygon-logo.png"
+import baseLogo from "../assets/hero-page/logo/base-logo.png"
+import arbitrumLogo from "../assets/hero-page/logo/arbitrum-logo.png"
+import optimismLogo from "../assets/hero-page/logo/optimism-logo.png"
 
-const HeroPage: React.FC = () => {
-    const [isMobile, setIsMobile] = useState(false)
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-    useEffect(() => {
-        const checkIfMobile = () => {
-            setIsMobile(window.innerWidth < 768)
-        }
-
-        // Initial check
-        checkIfMobile()
-
-        // Add event listener for window resize
-        window.addEventListener("resize", checkIfMobile)
-
-        // Cleanup
-        return () => {
-            window.removeEventListener("resize", checkIfMobile)
-        }
-    }, [])
-
-    return (
-        <div className="overflow-hidden relative min-h-screen">
-            {/* Main background image */}
-            <div
-                className="absolute inset-0 bg-center bg-no-repeat bg-cover"
-                style={{
-                    backgroundImage: "url('/src/assets/hero/hero-bg.png')",
-                    zIndex: 0
-                }}
-            />
-
-            {/* Dots pattern overlay */}
-            <div
-                className="absolute inset-0 bg-center bg-no-repeat bg-cover"
-                style={{
-                    backgroundImage: "url('/src/assets/hero/dots.jpg')",
-                    opacity: 0.4,
-                    zIndex: 1
-                }}
-            />
-
-            {/* Subtle noise texture */}
-            <div className="absolute inset-0 bg-[url('/src/assets/hero/noise-texture.png')] opacity-12 mix-blend-overlay pointer-events-none z-2" />
-
-            {/* Subtle vignette effect */}
-            <div
-                className="absolute inset-0 pointer-events-none opacity-65 z-3"
-                style={{ background: 'radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 100%)' }}
-            />
-
-            {/* Subtle gradient overlay for better text readability */}
-            <div
-                className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[rgba(0,0,0,0.3)] z-4 pointer-events-none"
-            />
-
-            <div className="relative z-10">
-                {isMobile ? (
-                    <div className="min-h-screen">
-                        <Navbar isMobile={true} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-                        <HeroSection isMobile={true} />
-                    </div>
-                ) : (
-                    <div className="min-h-screen">
-                        <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-                        <HeroSection />
-                    </div>
-                )}
-            </div>
-        </div>
-    )
+// Define types for chain data
+interface Chain {
+    id: string
+    name: string
+    logo: string
+    isSelected?: boolean
 }
 
-// === Navbar Component ===
-interface NavbarProps {
-    isMobile?: boolean
-    isMenuOpen: boolean
-    setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
-}
+const HeroPage = () => {
+    // State for selected chain
+    const [selectedChain, setSelectedChain] = useState<string>("ethereum")
 
-const Navbar: React.FC<NavbarProps> = ({ isMobile = false, isMenuOpen, setIsMenuOpen }) => {
-    const navItems: NavItem[] = [
-        { id: "chain-hub", label: "Chain Hub", path: "/" },
-        { id: "dApp-hub", label: "dApp hub", path: "/dapp-hub" },
-        { id: "leaderboard", label: "Leaderboard", path: "/leaderboard" },
+    // Chain data
+    const chains: Chain[] = [
+        { id: "ethereum", name: "Ethereum", logo: ethLogo, isSelected: true },
+        { id: "binance", name: "Binance Smart Chain", logo: binanceLogo },
+        { id: "polygon", name: "Polygon", logo: polygonLogo },
+        { id: "base", name: "Base", logo: baseLogo },
+        { id: "arbitrum", name: "Arbitrum", logo: arbitrumLogo },
+        { id: "optimism", name: "Optimism", logo: optimismLogo },
     ]
 
-    if (isMobile) {
-        return (
-            <div className="w-full px-6 py-4 my-3 mx-auto max-w-[95%] rounded-[30px] bg-[rgba(41,33,25,0.65)] backdrop-blur-xl border border-[rgba(255,255,255,0.15)] shadow-[0_8px_25px_rgba(0,0,0,0.25)]">
-                <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                        <div className="text-2xl tracking-wider font-pixel rainbow-text drop-shadow-[0_0_8px_rgba(255,107,0,0.5)]">rekt.id</div>
-                    </div>
-                    <button
-                        className="text-white bg-transparent border-none p-2 rounded-full hover:bg-[rgba(255,255,255,0.1)] transition-colors"
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        <Menu size={24} color="#fff" />
-                    </button>
-                </div>
-                {isMenuOpen && (
-                    <div className="flex flex-col gap-4 mt-5 backdrop-blur-xl bg-[rgba(35,28,20,0.65)] p-5 rounded-xl border border-[rgba(255,255,255,0.15)] shadow-lg animate-fadeIn">
-                        {navItems.map((item) => (
-                            <a
-                                key={item.id}
-                                href={item.path}
-                                className="text-white no-underline font-game text-sm py-2.5 px-4 hover:text-[#FF6B00] transition-all duration-300 hover:translate-x-1 rounded-md hover:bg-[rgba(255,255,255,0.05)]"
-                            >
-                                {item.label}
+    // Handle chain selection
+    const handleChainSelect = (chainId: string) => {
+        setSelectedChain(chainId)
+    }
+
+    return (
+        <div className="overflow-hidden relative w-full min-h-screen font-mono text-white">
+            {/* Background Image */}
+            <div className="absolute inset-0 z-0">
+                <img src={bgImg} alt="Background" className="object-cover w-full h-full" />
+            </div>
+
+            {/* Main Content Container */}
+            <div className="flex relative z-10 flex-col min-h-screen">
+                {/* Header */}
+                <header className="px-6 py-4">
+                    <div className="flex justify-between items-center px-6 py-3 mx-auto max-w-7xl rounded-full border backdrop-blur-sm bg-black/30 border-gray-800/30">
+                        <div className="flex items-center">
+                            <img src={rektIdLogo} alt="rekt.id" className="w-auto h-8" />
+                        </div>
+                        <nav className="hidden items-center space-x-8 md:flex">
+                            <a href="#" className="text-white transition hover:text-orange-400">
+                                Chain Hub
                             </a>
-                        ))}
+                            <a href="#" className="text-white transition hover:text-orange-400">
+                                dApp hub
+                            </a>
+                            <a href="#" className="text-white transition hover:text-orange-400">
+                                Leaderboard
+                            </a>
+                        </nav>
                     </div>
-                )}
-            </div>
-        )
-    }
+                </header>
 
-    return (
-        <nav className="navbar flex justify-between items-center px-8 py-4 rounded-[50px] mx-auto my-5 max-w-[90%] border border-[rgba(255,255,255,0.18)] bg-[rgba(41,33,25,0.55)] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
-            <div className="flex items-center">
-                <div className="text-4xl tracking-wider font-pixel rainbow-text drop-shadow-[0_0_8px_rgba(255,107,0,0.5)]">rekt.id</div>
-            </div>
-            <div className="flex gap-10">
-                {navItems.map((item) => (
-                    <a
-                        key={item.id}
-                        href={item.path}
-                        className="text-white no-underline font-game text-base transition-all duration-300 hover:text-[#FF6B00] py-2 px-4 rounded-lg hover:bg-[rgba(255,255,255,0.05)]"
-                    >
-                        {item.label}
-                    </a>
-                ))}
-            </div>
-        </nav>
-    )
-}
+                {/* Main Content */}
+                <main className="flex-1 px-6 py-8">
+                    <div className="mx-auto max-w-7xl">
+                        {/* Hero Section */}
+                        <div className="flex flex-col justify-between items-start mb-12 md:flex-row md:items-center">
+                            <div className="flex items-center">
+                                <img
+                                    src={chainhubLogo}
+                                    alt="ChainHub Logo"
+                                    className="mr-4 w-20 h-20"
+                                    style={{ transform: 'rotate(180deg)' }}
+                                />
+                                <div>
+                                    <h1 className="text-4xl font-bold tracking-wider md:text-5xl">CHAINHUB</h1>
+                                    <p className="text-sm tracking-wide text-gray-400 md:text-base">GAMIFIED GLANCE ON YOUR ACTIVITY</p>
+                                </div>
+                            </div>
 
-// === HeroSection Component ===
-interface HeroSectionProps {
-    isMobile?: boolean
-}
+                            {/* User Profile */}
+                            <div className="flex items-center px-4 py-2 mt-6 rounded-full border backdrop-blur-sm md:mt-0 bg-black/40 border-gray-800/30">
+                                <img src={avatarImg} alt="User Avatar" className="mr-3 w-10 h-10 rounded-full" />
+                                <div>
+                                    <div className="flex items-center">
+                                        <span className="font-medium">Sahil Gupta</span>
+                                        <svg className="ml-1 w-4 h-4 text-blue-400 fill-blue-400" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                                        </svg>
+                                    </div>
+                                    <span className="text-sm text-gray-400">@realSahilTrikon</span>
+                                </div>
+                            </div>
+                        </div>
 
-const HeroSection: React.FC<HeroSectionProps> = ({ isMobile = false }) => {
-    if (isMobile) {
-        return (
-            <div className="flex flex-col items-center py-10 px-5 min-h-[calc(100vh-80px)]">
-                <div className="flex flex-col gap-7 items-center text-center">
-                    <div className="flex justify-center mb-2">
-                        <img
-                            src="/src/assets/hero/chainhub-logo.png"
-                            alt="ChainHub Logo"
-                            className="w-28 h-auto drop-shadow-lg animate-pulse-gentle"
-                        />
+                        {/* Dashboard Content */}
+                        <div className="p-6 rounded-3xl border backdrop-blur-sm bg-black/30 md:p-8 border-gray-800/30">
+                            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+                                {/* Left Column - Holdings */}
+                                <div className="col-span-1 lg:col-span-2">
+                                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                        {/* Total Holdings */}
+                                        <div className="overflow-hidden relative h-40 rounded-xl">
+                                            <img
+                                                src={rectangleGradientBox}
+                                                alt="Holdings Background"
+                                                className="object-cover absolute inset-0 w-full h-full"
+                                            />
+                                            <div className="flex absolute inset-0 flex-col justify-between p-6">
+                                                <div className="flex items-center">
+                                                    <span className="text-sm tracking-wide text-gray-300 uppercase">Total Holdings</span>
+                                                    <svg
+                                                        className="ml-1 w-4 h-4 text-orange-500"
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path
+                                                            d="M12 5V19M12 5L6 11M12 5L18 11"
+                                                            stroke="currentColor"
+                                                            strokeWidth="2"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                        />
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <div className="mb-2 text-4xl font-bold monospace-numbers">$67,850.07</div>
+                                                    <div className="flex justify-between items-center">
+                                                        <div className="flex items-center px-2 py-1 text-xs rounded transition-colors cursor-pointer bg-black/50 hover:bg-black/70">
+                                                            $USD
+                                                            <svg
+                                                                className="ml-1 w-4 h-4"
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                                <path
+                                                                    d="M6 9L12 15L18 9"
+                                                                    stroke="currentColor"
+                                                                    strokeWidth="2"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                />
+                                                            </svg>
+                                                        </div>
+                                                        <span className="text-xs text-gray-400">*Today</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Chain Score and Volume */}
+                                        <div className="flex flex-col gap-6">
+                                            <div className="bg-gradient-to-r from-black to-[#B94107] rounded-xl p-6">
+                                                <div className="mb-1 text-sm tracking-wide text-gray-300 uppercase">Chain Score</div>
+                                                <div className="text-4xl font-bold monospace-numbers">785</div>
+                                            </div>
+                                            <div className="bg-gradient-to-r from-black to-[#B94107] rounded-xl p-6">
+                                                <div className="mb-1 text-sm tracking-wide text-gray-300 uppercase">Total Volume</div>
+                                                <div className="text-4xl font-bold monospace-numbers">$187,875</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Stats Section */}
+                                    <div className="relative mt-12">
+                                        {/* YOUR ONCHAIN Stats Section with Connections */}
+                                        <div className="flex relative items-start mb-12">
+                                            {/* Left side - lightning icon and stats text */}
+                                            <div className="flex relative items-center">
+                                                <div className="mr-3 lightning-container">
+                                                    <img src={lightingImg} alt="Lightning" className="w-24 h-auto" />
+                                                </div>
+                                                <div className="stats-text">
+                                                    <div className="text-2xl font-bold gradient-text-orange">YOUR ONCHAIN</div>
+                                                    <div className="text-5xl italic font-bold">stats</div>
+                                                </div>
+                                            </div>
+
+                                            {/* Connection lines with dots */}
+                                            <div className="absolute -right-4 top-1/2 transform -translate-y-1/2">
+                                                <div className="relative connection-line">
+                                                    <div className="absolute w-3 h-3 bg-yellow-400 rounded-full connection-dot" style={{ left: '0px', top: '-25px' }}></div>
+                                                    <div className="absolute w-3 h-3 bg-yellow-400 rounded-full connection-dot" style={{ left: '0px', top: '20px' }}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Decorative Light Plugs */}
+                                        <div className="absolute -top-10 -left-10">
+                                            <img src={lightPlug} alt="Light Plug 1" className="w-16 h-16 light-plug" />
+                                            <div className="light-connection-line"></div>
+                                        </div>
+                                        <div className="absolute left-[25%] -top-8">
+                                            <img src={lightPlug} alt="Light Plug 2" className="w-16 h-16 light-plug" />
+                                            <div className="light-connection-line"></div>
+                                        </div>
+
+                                        {/* Stats Grid */}
+                                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+                                            {/* First Transaction */}
+                                            <div>
+                                                <div className="mb-2 text-sm font-medium gradient-text-orange">First Transaction</div>
+                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="text-xs text-orange-500">11:53 UTC</div>
+                                                    <div className="text-xl text-orange-500 monospace-numbers">12-06-2018</div>
+                                                </div>
+                                            </div>
+
+                                            {/* Latest Transaction */}
+                                            <div>
+                                                <div className="mb-2 text-sm font-medium gradient-text-orange">Latest Transaction</div>
+                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="text-xs text-orange-500">01:11 UTC</div>
+                                                    <div className="text-xl text-orange-500 monospace-numbers">15-04-2025</div>
+                                                </div>
+                                            </div>
+
+                                            {/* High Value Transaction */}
+                                            <div>
+                                                <div className="mb-2 text-sm font-medium gradient-text-orange">High Value Transaction</div>
+                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="text-2xl text-orange-500 monospace-numbers">$18,765.08</div>
+                                                </div>
+                                            </div>
+
+                                            {/* Cumulative Gas Fees */}
+                                            <div>
+                                                <div className="mb-2 text-sm font-medium gradient-text-orange">Cumulative Gas Fees</div>
+                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="text-2xl text-orange-500 monospace-numbers">$1,865.08</div>
+                                                </div>
+                                            </div>
+
+                                            {/* Total Amount Staked */}
+                                            <div>
+                                                <div className="mb-2 text-sm font-medium gradient-text-orange">Total Amount Staked</div>
+                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="text-2xl text-orange-500 monospace-numbers">$665.08</div>
+                                                </div>
+                                            </div>
+
+                                            {/* Total NFTs Minted */}
+                                            <div>
+                                                <div className="mb-2 text-sm font-medium gradient-text-orange">Total NFTs Minted</div>
+                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="text-2xl text-orange-500 monospace-numbers">478</div>
+                                                </div>
+                                            </div>
+
+                                            {/* Total No Of Transactions */}
+                                            <div>
+                                                <div className="mb-2 text-sm font-medium gradient-text-orange">Total No Of Transactions</div>
+                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="text-2xl text-orange-500 monospace-numbers">1,785</div>
+                                                </div>
+                                            </div>
+
+                                            {/* Total Token Holdings */}
+                                            <div>
+                                                <div className="mb-2 text-sm font-medium gradient-text-orange">Total Token Holdings</div>
+                                                <div className="p-4 rounded-xl bg-black/50 stats-box-glow">
+                                                    <div className="text-2xl text-orange-500 monospace-numbers">547</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Right Column - Chain Selector */}
+                                <div className="col-span-1">
+                                    <div className="mb-4 text-lg font-medium tracking-wide text-center uppercase">SELECT YOUR CHAIN</div>
+                                    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-2">
+                                        {chains.map((chain) => (
+                                            <div
+                                                key={chain.id}
+                                                onClick={() => handleChainSelect(chain.id)}
+                                                className={`chain-selector-item ${selectedChain === chain.id
+                                                    ? "bg-gradient-to-r from-[#FFAA79] to-[#FD5D00]"
+                                                    : "bg-black/40 hover:bg-black/60"
+                                                    } rounded-xl p-3 flex items-center cursor-pointer`}
+                                            >
+                                                <img src={chain.logo || "/placeholder.svg"} alt={chain.name} className="mr-3 w-6 h-6" />
+                                                <span className={selectedChain === chain.id ? "font-medium" : ""}>{chain.name}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h1 className="mb-3 text-5xl text-white font-game drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">CHAINHUB</h1>
-                    <p className="font-retro text-lg opacity-95 max-w-[300px] mx-auto tracking-wider text-white drop-shadow-md leading-relaxed">GAMIFIED GLANCE ON YOUR ACTIVITY</p>
-
-                    <ChainSelector isMobile={true} />
-                </div>
-            </div>
-        )
-    }
-
-    return (
-        <div className="flex justify-between items-center min-h-[calc(100vh-120px)] p-8 relative">
-            <div className="flex flex-col flex-1 justify-between h-full">
-                <div className="relative h-[300px]">
-                    <img
-                        src="/src/assets/hero/img-hero-left-top/action-figure.png"
-                        alt="Character"
-                        className="absolute w-[200px] left-[50px] top-[50px] z-10 drop-shadow-xl hover:scale-105 transition-transform duration-500"
-                    />
-                    <img
-                        src="/src/assets/hero/img-hero-left-top/cloud.png"
-                        alt="Cloud"
-                        className="absolute w-[300px] left-0 top-[150px] z-0 animate-float-slow"
-                    />
-                </div>
-                <div className="relative h-[300px]">
-                    <img
-                        src="/src/assets/hero/img-hero-left-bottom.png"
-                        alt="Character"
-                        className="absolute w-[250px] left-[20px] bottom-0 drop-shadow-xl hover:scale-105 transition-transform duration-500"
-                    />
-                </div>
+                </main>
             </div>
 
-            <div className="flex z-10 flex-col justify-center items-center flex-2">
-                <div className="mb-10 text-center">
-                    <img
-                        src="/src/assets/hero/chainhub-logo.png"
-                        alt="ChainHub Logo"
-                        className="mx-auto mb-6 w-32 h-auto drop-shadow-lg animate-pulse-gentle"
-                    />
-                    <h1 className="mb-5 text-5xl text-white font-game drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">CHAINHUB</h1>
-                    <p className="font-retro text-xl opacity-95 max-w-[350px] mx-auto tracking-wider text-white leading-relaxed drop-shadow-md">GAMIFIED GLANCE ON YOUR ACTIVITY</p>
-                </div>
-                <ChainSelector />
-            </div>
+            {/* Decorative Lines with connections to light plugs */}
+            <div className="absolute bottom-0 left-0 z-0 w-full">
+                <img src={linesVectorSvg} alt="Decorative Lines" className="w-full" />
 
-            <div className="flex flex-col flex-1 justify-between h-full">
-                <div className="relative h-[300px]">
-                    <img
-                        src="/src/assets/hero/img-hero-right-top/action-figure.png"
-                        alt="Character"
-                        className="absolute w-[200px] right-[50px] top-[50px] z-10 drop-shadow-xl hover:scale-105 transition-transform duration-500"
-                    />
-                    <img
-                        src="/src/assets/hero/img-hero-right-top/cloud.png"
-                        alt="Cloud"
-                        className="absolute w-[300px] right-0 top-[150px] z-0 animate-float-slow"
-                    />
-                </div>
-                <div className="relative h-[300px]">
-                    <img
-                        src="/src/assets/hero/img-hero-bottom.png"
-                        alt="Character"
-                        className="absolute w-[250px] right-[20px] bottom-0 drop-shadow-xl hover:scale-105 transition-transform duration-500"
-                    />
-                </div>
+                <div className="light-to-lines-connector left-connector"></div>
+                <div className="light-to-lines-connector right-connector"></div>
             </div>
         </div>
     )
 }
 
-// === ChainSelector Component ===
-interface ChainSelectorProps {
-    isMobile?: boolean
-}
-
-const ChainSelector: React.FC<ChainSelectorProps> = ({ isMobile = false }) => {
-    const chains: ChainOption[] = [
-        {
-            id: "ethereum",
-            name: "Ethereum",
-            icon: "eth",
-            color: "#FF6B00",
-            iconColor: "#627EEA",
-            symbol: "Ξ",
-        },
-        {
-            id: "base",
-            name: "Base",
-            icon: "base",
-            color: "#0052FF",
-            iconColor: "#0052FF",
-            symbol: "B",
-        },
-        {
-            id: "binance",
-            name: "Binance Smart Chain",
-            icon: "bnb",
-            color: "#F0B90B",
-            iconColor: "#F0B90B",
-            symbol: "BNB",
-        },
-        {
-            id: "arbitrum",
-            name: "Arbitrum",
-            icon: "arb",
-            color: "#28A0F0",
-            iconColor: "#28A0F0",
-            symbol: "A",
-        },
-        {
-            id: "polygon",
-            name: "Polygon",
-            icon: "poly",
-            color: "#8247E5",
-            iconColor: "#8247E5",
-            symbol: "P",
-        },
-        {
-            id: "optimism",
-            name: "Optimism",
-            icon: "opt",
-            color: "#FF0420",
-            iconColor: "#FF0420",
-            symbol: "O",
-        },
-    ]
-
-    return (
-        <div className={`flex flex-col items-center ${isMobile ? "gap-7 px-4 w-full" : "gap-8 w-full max-w-[650px]"}`}>
-            <h2 className="font-game text-xl tracking-[0.25em] text-center text-white mb-5 drop-shadow-md">SELECT YOUR CHAIN</h2>
-            <div className={`grid grid-cols-2 ${isMobile ? "gap-4 w-full" : "gap-5 w-full"}`}>
-                {chains.map((chain) => (
-                    <button
-                        key={chain.id}
-                        className={`chain-btn flex items-center gap-4 py-4 px-6 text-white font-medium backdrop-blur-lg 
-                        ${chain.id === "ethereum" ? `chain-btn-${chain.id}` : `chain-btn-${chain.id}`} 
-                        border border-[rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-[1.03] 
-                        hover:shadow-[0_10px_40px_rgba(0,0,0,0.3)] rounded-lg active:scale-[0.98]`}
-                        style={{
-                            backgroundColor: `${chain.color}35`,
-                            boxShadow: `0 8px 32px 0 rgba(0, 0, 0, 0.25)`,
-                        }}
-                    >
-                        <ChainIcon chain={chain} size={36} />
-                        <span className="text-lg tracking-wide font-retro md:text-xl">{chain.name}</span>
-                    </button>
-                ))}
-            </div>
-        </div>
-    )
-}
-
-// === ChainIcon Component ===
-interface ChainIconProps {
-    chain: ChainOption
-    size?: number
-}
-
-const ChainIcon: React.FC<ChainIconProps> = ({ chain, size = 24 }) => {
-    // Use Lucide React icons based on chain ID
-    const renderIcon = () => {
-        switch (chain.id) {
-            case "ethereum":
-                return <Diamond size={size * 0.6} strokeWidth={2.5} color="#fff" />
-            case "base":
-                return <CircleDot size={size * 0.6} strokeWidth={2.5} color="#fff" />
-            case "binance":
-                return <Hexagon size={size * 0.6} strokeWidth={2.5} color="#fff" />
-            case "arbitrum":
-                return <Sparkles size={size * 0.6} strokeWidth={2.5} color="#fff" />
-            case "polygon":
-                return <Diamond size={size * 0.6} strokeWidth={2.5} color="#fff" />
-            case "optimism":
-                return <TriangleAlert size={size * 0.6} strokeWidth={2.5} color="#fff" />
-            default:
-                return <CircleEllipsis size={size * 0.6} strokeWidth={2.5} color="#fff" />
-        }
-    }
-
-    return (
-        <div
-            className="flex justify-center items-center rounded-full chain-icon"
-            style={{
-                backgroundColor: chain.iconColor,
-                width: `${size}px`,
-                height: `${size}px`,
-                boxShadow: `0 0 18px ${chain.iconColor}90`,
-                transition: 'all 0.3s ease',
-            }}
-        >
-            {renderIcon()}
-        </div>
-    )
-}
-
-export default HeroPage 
+export default HeroPage

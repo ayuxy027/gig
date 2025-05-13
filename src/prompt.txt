@@ -1,0 +1,79 @@
+Design a gamified web dashboard called "ChainHub" using a dark, neon-themed aesthetic. Refer to the attached screenshot for exact layout. Match spacing, colors, gradients, fonts, and shadows precisely. Use the assets provided with exact placements below. Font used: DM Mono.
+
+🔳 Background: Use bg-img.png as the full-page background (stretch to cover entire viewport).
+
+🌐 Header Section: Logo (left side): rekt.id styled logo – custom render or placeholder text rekt.id (match from screenshot).
+
+Navigation links (top-right): Chain Hub, dApp hub, Leaderboard.
+
+🚀 Hero / Title: Title: "CHAINHUB"
+
+Subtitle: "GAMIFIED GLANCE ON YOUR ACTIVITY"
+
+Logo beside the title: Use chainhub-logo.png (left of “CHAINHUB”).
+
+🧑 User Profile (top-right): Avatar: Use avatar.png
+
+Username: Sahil Gupta
+
+Handle: @realSahilTrikon
+
+Optional: Add verified tick styled from screenshot.
+
+💰 Holdings & Stats: Total Holdings box (top-left):
+
+Background image: rectangle gradient box.png
+
+Text overlay: $67,850.07 and dropdown for $USD
+
+Subtext: “Today”
+
+Chain Score and Total Volume (to the right):
+
+Background gradient: 
+#000000 → 
+#B94107 (left to right)
+
+Chain Score: 785
+
+Total Volume: $187,875
+
+🔗 Chain Selector (Right-side panel): Six chain buttons in this order:
+
+Ethereum (selected) → eth-logo.png
+
+Binance Smart Chain → binance-logo.png
+
+Polygon → polygon-logo.png
+
+Base → base-logo.png
+
+Arbitrum → arbitrum-logo.png
+
+Optimism → optimism-logo.png
+
+Use logos from the logo folder and position them inside/alongside each respective chain button.
+
+⚡️ Your Onchain Stats Section: Label Gradient for all stat titles: Apply linear-gradient(
+#FFAA79, 
+#FD5D00) to:
+
+“Your Onchain Stats”
+
+“First Transaction”, “Latest Transaction”, etc.
+
+Stats to display in this order (with values from screenshot):
+
+Label Value First Transaction 11:53 UTC, 12-06-2018 Latest Transaction 01:11 UTC, 15-04-2025 High Value Transaction $18,765.08 Cumulative Gas Fees $1,865.08 Total Amount Staked $665.08 Total NFTs Minted 478 Total No Of Transactions 1,785 Total Token Holdings 547
+
+Boxes should have dark background with subtle inner-glow and rounded corners, just like the screenshot.
+
+💡 Decorative Assets: Place these non-functional visual elements as per the original layout:
+
+light-plug.svg or light-plug.png – top-left glowing plug (subtle glow).
+
+lighting-img.png – behind/on side of “Your Onchain Stats”.
+
+lines vector svg.png – bottom or background accent vector.
+
+also.. please map all assets perfectly and give it one final finish
